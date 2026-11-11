@@ -164,6 +164,17 @@ class GeminiClient {
     required double temperature,
     required List<({String mimeType, Uint8List bytes})> mediaParts,
   }) async {
+    if (_dartDefineApiKey.isNotEmpty) {
+      return _invokeRestFallback(
+        apiKey: _dartDefineApiKey,
+        systemInstruction: systemInstruction,
+        promptText: promptText,
+        responseSchema: responseSchema,
+        temperature: temperature,
+        mediaParts: mediaParts,
+      );
+    }
+
     final hasFirebaseApp = Firebase.apps.isNotEmpty;
     if (hasFirebaseApp) {
       final model = FirebaseAI.googleAI().generativeModel(
@@ -191,17 +202,6 @@ class GeminiClient {
         );
       }
       return text;
-    }
-
-    if (_dartDefineApiKey.isNotEmpty) {
-      return _invokeRestFallback(
-        apiKey: _dartDefineApiKey,
-        systemInstruction: systemInstruction,
-        promptText: promptText,
-        responseSchema: responseSchema,
-        temperature: temperature,
-        mediaParts: mediaParts,
-      );
     }
 
     throw const GeminiClientException(

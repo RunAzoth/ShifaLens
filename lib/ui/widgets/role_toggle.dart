@@ -24,18 +24,18 @@ class RoleToggle extends ConsumerWidget {
           HapticFeedback.lightImpact();
           ref.read(userRoleProvider.notifier).toggle();
         },
-        borderRadius: BorderRadius.circular(AppTokens.radiusFull),
+        borderRadius: BorderRadius.circular(AppTokens.chipRadius),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
             color: role.isCaretaker
                 ? AppTokens.primaryTeal.withValues(alpha: 0.12)
-                : AppTokens.accentAmber.withValues(alpha: 0.15),
-            borderRadius: BorderRadius.circular(AppTokens.radiusFull),
+                : AppTokens.warningAmber.withValues(alpha: 0.15),
+            borderRadius: BorderRadius.circular(AppTokens.chipRadius),
             border: Border.all(
               color: role.isCaretaker
                   ? AppTokens.primaryTeal
-                  : AppTokens.accentAmber,
+                  : AppTokens.warningAmber,
               width: 1.5,
             ),
           ),
@@ -47,7 +47,7 @@ class RoleToggle extends ConsumerWidget {
                 size: 16,
                 color: role.isCaretaker
                     ? AppTokens.primaryTealDark
-                    : AppTokens.accentAmberDark,
+                    : AppTokens.warningAmberDark,
               ),
               const SizedBox(width: 4),
               Text(
@@ -57,7 +57,7 @@ class RoleToggle extends ConsumerWidget {
                   fontWeight: FontWeight.bold,
                   color: role.isCaretaker
                       ? AppTokens.primaryTealDark
-                      : AppTokens.accentAmberDark,
+                      : AppTokens.warningAmberDark,
                 ),
               ),
             ],
@@ -70,13 +70,13 @@ class RoleToggle extends ConsumerWidget {
       elevation: 0,
       color: role.isCaretaker
           ? AppTokens.primaryTeal.withValues(alpha: 0.08)
-          : AppTokens.accentAmber.withValues(alpha: 0.1),
+          : AppTokens.warningAmber.withValues(alpha: 0.1),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppTokens.radiusMedium),
+        borderRadius: BorderRadius.circular(AppTokens.cardRadius),
         side: BorderSide(
           color: role.isCaretaker
               ? AppTokens.primaryTeal
-              : AppTokens.accentAmber,
+              : AppTokens.warningAmber,
           width: 1.5,
         ),
       ),
@@ -89,7 +89,7 @@ class RoleToggle extends ConsumerWidget {
               decoration: BoxDecoration(
                 color: role.isCaretaker
                     ? AppTokens.primaryTeal
-                    : AppTokens.accentAmber,
+                    : AppTokens.warningAmber,
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -128,7 +128,7 @@ class RoleToggle extends ConsumerWidget {
               style: TextButton.styleFrom(
                 foregroundColor: role.isCaretaker
                     ? AppTokens.primaryTealDark
-                    : AppTokens.accentAmberDark,
+                    : AppTokens.warningAmberDark,
               ),
             ),
           ],

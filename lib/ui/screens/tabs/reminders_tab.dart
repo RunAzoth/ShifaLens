@@ -485,7 +485,7 @@ class RemindersTab extends ConsumerWidget {
                                 vertical: 4,
                               ),
                               decoration: BoxDecoration(
-                                color: AppTokens.accentAmber.withValues(alpha: 0.15),
+                                color: AppTokens.warningAmber.withValues(alpha: 0.15),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: const Text(
@@ -493,7 +493,7 @@ class RemindersTab extends ConsumerWidget {
                                 style: TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.bold,
-                                  color: AppTokens.accentAmberDark,
+                                  color: AppTokens.warningAmberDark,
                                 ),
                               ),
                             ),

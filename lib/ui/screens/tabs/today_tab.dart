@@ -619,7 +619,7 @@ class _RamadanHeaderCard extends StatelessWidget {
                           : Icons.lock_clock_rounded,
                       color: doctorApproved
                           ? AppTokens.successGreenDark
-                          : AppTokens.textMuted,
+                          : AppTokens.inkSubtle,
                       size: 20,
                     ),
                     const SizedBox(width: 8),

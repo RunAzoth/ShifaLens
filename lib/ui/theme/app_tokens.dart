@@ -42,6 +42,11 @@ class AppTokens {
   static const Color alertCoralDark = Color(0xFF991B1B);
   static const Color alertCoralTint = Color(0xFFFEE2E2);
 
+  // Role and UI accents
+  static const Color accentAmber = warningAmber;
+  static const Color accentAmberDark = warningAmberDark;
+  static const Color textMuted = inkMuted;
+
   // Typography families (bundled offline-safe in assets/fonts)
   static const String fontUrduHeadline = 'NotoNastaliqUrdu';
   static const String fontUrduBody = 'NotoNaskhArabic';
@@ -57,7 +62,9 @@ class AppTokens {
   // Shape & space (8dp grid)
   static const double cardRadius = 24.0;
   static const double chipRadius = 16.0;
+  static const double radiusMedium = 16.0;
   static const double buttonRadius = 20.0;
+  static const double radiusFull = 999.0;
   static const double minTapTarget = 56.0;
   static const double heroTapTarget = 64.0;
 

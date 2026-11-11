@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/models/models.dart';
 import '../theme/app_tokens.dart';
 import '../theme/language_controller.dart';
+import '../theme/role_controller.dart';
 import '../widgets/widgets.dart';
 import 'email_share_sheet.dart';
 import 'journey_controller.dart';
@@ -114,6 +115,11 @@ class _PlanHubScreenState extends ConsumerState<PlanHubScreen> {
                           onPressed: () => Navigator.of(sheetCtx).pop(),
                         ),
                       ],
+                    ),
+                    // User Role Switcher inside More sheet
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 12),
+                      child: RoleToggle(),
                     ),
                     const Divider(),
 
@@ -283,6 +289,8 @@ class _PlanHubScreenState extends ConsumerState<PlanHubScreen> {
             '${_tabSpecs[_selectedTab].en} • ${_tabSpecs[_selectedTab].ur}',
           ),
           actions: [
+            const RoleToggle(compact: true),
+            const SizedBox(width: 8),
             Semantics(
               button: true,
               label:

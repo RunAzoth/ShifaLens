@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../app/providers.dart';
 import '../../../core/models/models.dart';
 import '../../theme/app_tokens.dart';
+import '../../theme/role_controller.dart';
 import '../../widgets/widgets.dart';
 import '../journey_controller.dart';
 
@@ -447,97 +448,142 @@ class RemindersTab extends ConsumerWidget {
             ),
             const SizedBox(height: AppTokens.space2),
 
-            // 4. Meal-Time Pickers (MealTimes)
-            Container(
-              padding: const EdgeInsets.all(AppTokens.space2),
-              decoration: BoxDecoration(
-                color: AppTokens.cardCream,
-                borderRadius: BorderRadius.circular(AppTokens.cardRadius),
-                border: Border.all(color: AppTokens.borderWarm, width: 1.4),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const BiText(
-                    Bilingual(
-                      ur: 'کھانے کے اوقات تبدیل کریں:',
-                      en: 'Customize Your Meal Times:',
-                    ),
-                    isHeadline: true,
+            // 4. Meal-Time Pickers (MealTimes) - Caretaker Authority
+            Consumer(
+              builder: (context, ref, _) {
+                final role = ref.watch(userRoleProvider);
+                return Container(
+                  padding: const EdgeInsets.all(AppTokens.space2),
+                  decoration: BoxDecoration(
+                    color: AppTokens.cardCream,
+                    borderRadius: BorderRadius.circular(AppTokens.cardRadius),
+                    border: Border.all(color: AppTokens.borderWarm, width: 1.4),
                   ),
-                  const SizedBox(height: 12),
-                  for (final slot in _editableSlots) ...[
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: InkWell(
-                        key: Key('meal_time_picker_${slot.name}'),
-                        borderRadius: BorderRadius.circular(16),
-                        onTap: () => _pickSlotTime(
-                          context,
-                          ref,
-                          slot,
-                          journey.mealTimes.hhmm[slot] ?? '08:30',
-                        ),
-                        child: Container(
-                          constraints: const BoxConstraints(
-                            minHeight: AppTokens.minTapTarget,
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppTokens.surfaceWarm,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: AppTokens.borderWarm),
-                          ),
-                          child: Row(
-                            children: [
-                              SlotIcon(slot, size: 42),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: BiText(SlotIcon.labelFor(slot)),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                  vertical: 6,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(
-                                    color: AppTokens.primaryTeal,
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Icon(
-                                      Icons.access_time_rounded,
-                                      size: 18,
-                                      color: AppTokens.primaryTealDark,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: BiText(
+                              role.isCaretaker
+                                  ? const Bilingual(
+                                      ur: 'کھانے کے اوقات تبدیل کریں (نگران کا اختیار):',
+                                      en: 'Customize Meal Times (Caretaker Authority):',
+                                    )
+                                  : const Bilingual(
+                                      ur: 'کھانے کے اوقات (نگران کے طے کردہ):',
+                                      en: 'Configured Meal Times (Read Only):',
                                     ),
-                                    const SizedBox(width: 6),
-                                    Text(
-                                      journey.mealTimes.hhmm[slot] ?? '—',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w800,
-                                        color: AppTokens.primaryTealDark,
+                              isHeadline: true,
+                            ),
+                          ),
+                          if (!role.isCaretaker)
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppTokens.accentAmber.withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Text(
+                                'محفوظ شدہ • Locked',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppTokens.accentAmberDark,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      for (final slot in _editableSlots) ...[
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: InkWell(
+                            key: Key('meal_time_picker_${slot.name}'),
+                            borderRadius: BorderRadius.circular(16),
+                            onTap: role.isCaretaker
+                                ? () => _pickSlotTime(
+                                      context,
+                                      ref,
+                                      slot,
+                                      journey.mealTimes.hhmm[slot] ?? '08:30',
+                                    )
+                                : null,
+                            child: Container(
+                              constraints: const BoxConstraints(
+                                minHeight: AppTokens.minTapTarget,
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppTokens.surfaceWarm,
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(color: AppTokens.borderWarm),
+                              ),
+                              child: Row(
+                                children: [
+                                  SlotIcon(slot, size: 42),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: BiText(SlotIcon.labelFor(slot)),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(
+                                        color: AppTokens.primaryTeal,
                                       ),
                                     ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Icon(
+                                          Icons.access_time_rounded,
+                                          size: 18,
+                                          color: AppTokens.primaryTealDark,
+                                        ),
+                                        const SizedBox(width: 6),
+                                        Text(
+                                          journey.mealTimes.hhmm[slot] ?? '—',
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w800,
+                                            color: AppTokens.primaryTealDark,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  if (role.isCaretaker) ...[
+                                    const SizedBox(width: 6),
+                                    const Icon(
+                                      Icons.edit_rounded,
+                                      size: 18,
+                                      color: AppTokens.primaryTeal,
+                                    ),
                                   ],
-                                ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ],
-                ],
-              ),
+                      ],
+                    ],
+                  ),
+                );
+              },
             ),
             const SizedBox(height: AppTokens.space2),
             SafetyBanner.prototype(),

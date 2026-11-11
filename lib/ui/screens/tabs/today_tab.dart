@@ -7,6 +7,7 @@ import '../../../app/providers.dart';
 import '../../../core/models/models.dart';
 import '../../theme/app_tokens.dart';
 import '../../theme/language_controller.dart';
+import '../../theme/role_controller.dart';
 import '../../widgets/widgets.dart';
 import '../journey_controller.dart';
 
@@ -221,21 +222,27 @@ class _TodayTabState extends ConsumerState<TodayTab> {
               ],
 
               // Ramadan Header Switch & Doctor Approval Card
-              _RamadanHeaderCard(
-                ramadan: plan.ramadan,
-                doctorApproved: plan.ramadanDoctorApproved,
-                onToggleRamadan: (val) {
-                  HapticFeedback.selectionClick();
-                  ref
-                      .read(journeyControllerProvider.notifier)
-                      .setRamadanMode(ramadan: val);
-                },
-                onToggleApproved: (val) {
-                  HapticFeedback.selectionClick();
-                  ref.read(journeyControllerProvider.notifier).setRamadanMode(
-                        ramadan: plan.ramadan,
-                        doctorApproved: val ?? false,
-                      );
+              Consumer(
+                builder: (context, ref, _) {
+                  final role = ref.watch(userRoleProvider);
+                  return _RamadanHeaderCard(
+                    ramadan: plan.ramadan,
+                    doctorApproved: plan.ramadanDoctorApproved,
+                    isCaretaker: role.isCaretaker,
+                    onToggleRamadan: (val) {
+                      HapticFeedback.selectionClick();
+                      ref
+                          .read(journeyControllerProvider.notifier)
+                          .setRamadanMode(ramadan: val);
+                    },
+                    onToggleApproved: (val) {
+                      HapticFeedback.selectionClick();
+                      ref.read(journeyControllerProvider.notifier).setRamadanMode(
+                            ramadan: plan.ramadan,
+                            doctorApproved: val ?? false,
+                          );
+                    },
+                  );
                 },
               ),
               const SizedBox(height: 14),
@@ -442,12 +449,14 @@ class _SpeakingWaveform extends StatelessWidget {
 class _RamadanHeaderCard extends StatelessWidget {
   final bool ramadan;
   final bool doctorApproved;
+  final bool isCaretaker;
   final ValueChanged<bool> onToggleRamadan;
   final ValueChanged<bool?> onToggleApproved;
 
   const _RamadanHeaderCard({
     required this.ramadan,
     required this.doctorApproved,
+    this.isCaretaker = true,
     required this.onToggleRamadan,
     required this.onToggleApproved,
   });
@@ -542,51 +551,94 @@ class _RamadanHeaderCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            // Doctor approval checkbox gate for Ramadan reminders
-            InkWell(
-              key: const Key('ramadan_doctor_approved_checkbox'),
-              borderRadius: BorderRadius.circular(14),
-              onTap: () => onToggleApproved(!doctorApproved),
-              child: Container(
-                constraints: const BoxConstraints(
-                  minHeight: AppTokens.minTapTarget,
+            // Doctor approval checkbox gate for Ramadan reminders (Caretaker Authority)
+            if (isCaretaker)
+              InkWell(
+                key: const Key('ramadan_doctor_approved_checkbox'),
+                borderRadius: BorderRadius.circular(14),
+                onTap: () => onToggleApproved(!doctorApproved),
+                child: Container(
+                  constraints: const BoxConstraints(
+                    minHeight: AppTokens.minTapTarget,
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(
+                      color: doctorApproved
+                          ? AppTokens.successGreen
+                          : AppTokens.eveningIndigo,
+                      width: 1.5,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        value: doctorApproved,
+                        activeColor: AppTokens.successGreen,
+                        onChanged: onToggleApproved,
+                      ),
+                      const SizedBox(width: 6),
+                      const Expanded(
+                        child: BiText(
+                          Bilingual(
+                            ur: 'تیماردار/نگران: میرے ڈاکٹر نے اس کی اجازت دی ہے',
+                            en: 'Caretaker approval: My doctor approved this layout',
+                          ),
+                          urduWeight: FontWeight.w700,
+                          englishWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
+              )
+            else
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: doctorApproved
+                      ? AppTokens.successGreenTint
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(14),
                   border: Border.all(
                     color: doctorApproved
                         ? AppTokens.successGreen
-                        : AppTokens.eveningIndigo,
-                    width: 1.5,
+                        : AppTokens.borderWarm,
                   ),
                 ),
                 child: Row(
                   children: [
-                    Checkbox(
-                      value: doctorApproved,
-                      activeColor: AppTokens.successGreen,
-                      onChanged: onToggleApproved,
+                    Icon(
+                      doctorApproved
+                          ? Icons.check_circle_rounded
+                          : Icons.lock_clock_rounded,
+                      color: doctorApproved
+                          ? AppTokens.successGreenDark
+                          : AppTokens.textMuted,
+                      size: 20,
                     ),
-                    const SizedBox(width: 6),
-                    const Expanded(
+                    const SizedBox(width: 8),
+                    Expanded(
                       child: BiText(
-                        Bilingual(
-                          ur: 'میرے ڈاکٹر نے اس کی اجازت دی ہے (یاد دہانی فعال کرنے کے لیے)',
-                          en: 'My doctor approved this (required for Ramadan reminders)',
-                        ),
-                        urduWeight: FontWeight.w700,
-                        englishWeight: FontWeight.w600,
+                        doctorApproved
+                            ? const Bilingual(
+                                ur: 'نگران نے ڈاکٹر کی منظوری درج کر دی ہے۔',
+                                en: 'Caretaker confirmed doctor approval.',
+                              )
+                            : const Bilingual(
+                                ur: 'منظوری درکار ہے: نگران موڈ سے ڈاکٹر کی منظوری حاصل کریں۔',
+                                en: 'Approval needed: Ask your caretaker to confirm doctor approval.',
+                              ),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
           ],
         ],
       ),

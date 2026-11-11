@@ -8,6 +8,7 @@ export 'language_toggle.dart';
 export 'offline_banner.dart';
 export 'pill_badge.dart';
 export 'review_badge.dart';
+export 'role_toggle.dart';
 export 'safety_banner.dart';
 export 'skeleton_loader.dart';
 export 'slot_icon.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../core/models/models.dart';
 import '../theme/app_tokens.dart';
 import '../theme/role_controller.dart';
 import 'bi_text.dart';
@@ -26,7 +25,7 @@ class RoleToggle extends ConsumerWidget {
         },
         borderRadius: BorderRadius.circular(AppTokens.chipRadius),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
             color: role.isCaretaker
                 ? AppTokens.primaryTeal.withValues(alpha: 0.12)
@@ -51,7 +50,7 @@ class RoleToggle extends ConsumerWidget {
               ),
               const SizedBox(width: 4),
               Text(
-                role.isCaretaker ? 'نگران / Caretaker' : 'مریض / Patient',
+                role.isCaretaker ? 'نگران' : 'مریض',
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.bold,

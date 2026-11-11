@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../../core/models/models.dart';
 import '../theme/app_tokens.dart';
 import '../theme/language_controller.dart';
-import '../theme/role_controller.dart';
 import '../widgets/widgets.dart';
 import 'email_share_sheet.dart';
 import 'journey_controller.dart';
@@ -287,10 +286,11 @@ class _PlanHubScreenState extends ConsumerState<PlanHubScreen> {
           ),
           title: Text(
             '${_tabSpecs[_selectedTab].en} • ${_tabSpecs[_selectedTab].ur}',
+            overflow: TextOverflow.ellipsis,
           ),
           actions: [
             const RoleToggle(compact: true),
-            const SizedBox(width: 8),
+            const SizedBox(width: 4),
             Semantics(
               button: true,
               label:
@@ -300,7 +300,7 @@ class _PlanHubScreenState extends ConsumerState<PlanHubScreen> {
                 style: TextButton.styleFrom(
                   foregroundColor: AppTokens.primaryTealDark,
                   backgroundColor: AppTokens.primaryTealTint,
-                  minimumSize: const Size(88, 46),
+                  minimumSize: const Size(60, 40), padding: const EdgeInsets.symmetric(horizontal: 8),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
@@ -308,7 +308,7 @@ class _PlanHubScreenState extends ConsumerState<PlanHubScreen> {
                 onPressed: () => _openMoreSheet(context),
                 icon: const Icon(Icons.more_horiz_rounded),
                 label: const Text(
-                  'More • مزید',
+                  'More',
                   style: TextStyle(fontWeight: FontWeight.w700),
                 ),
               ),

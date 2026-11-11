@@ -405,8 +405,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   onPressed: _consentChecked
                       ? () {
                           HapticFeedback.mediumImpact();
-                          ref.read(consentAcceptedProvider.notifier).state =
-                              true;
+                          ref
+                              .read(consentAcceptedProvider.notifier)
+                              .setAccepted(true);
                           context.go('/home');
                         }
                       : null,

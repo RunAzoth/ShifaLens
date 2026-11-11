@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/models/models.dart';
+import '../../core/strings_disclosure.dart';
 import '../theme/app_tokens.dart';
 import '../theme/language_controller.dart';
 import '../widgets/widgets.dart';
@@ -143,6 +144,23 @@ class AboutScreen extends ConsumerWidget {
                 child: ReviewBadge(reviewed: false),
               ),
               const SizedBox(height: 16),
+
+              // Official ShifaLensDisclosureStrings sections from lib/core/strings_disclosure.dart
+              for (final disclosure in ShifaLensDisclosureStrings.allSections) ...[
+                Container(
+                  margin: const EdgeInsets.only(bottom: 14),
+                  padding: const EdgeInsets.all(AppTokens.space2),
+                  decoration: BoxDecoration(
+                    color: AppTokens.primaryTealSurface,
+                    borderRadius: BorderRadius.circular(AppTokens.cardRadius),
+                    border: Border.all(
+                      color: AppTokens.primaryTeal.withValues(alpha: 0.4),
+                      width: 1.4,
+                    ),
+                  ),
+                  child: BiText(disclosure),
+                ),
+              ],
 
               for (final sec in _sections) ...[
                 Container(

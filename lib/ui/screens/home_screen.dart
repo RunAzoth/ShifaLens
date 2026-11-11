@@ -128,7 +128,9 @@ class HomeScreen extends ConsumerWidget {
                         'Tests OfflineBanner & local curated fallbacks',
                       ),
                       onChanged: (val) {
-                        ref.read(simulatedOfflineProvider.notifier).state = val;
+                        ref
+                            .read(simulatedOfflineProvider.notifier)
+                            .setOffline(val);
                       },
                     ),
                     const SizedBox(height: 12),
@@ -137,8 +139,9 @@ class HomeScreen extends ConsumerWidget {
                         ref
                             .read(journeyControllerProvider.notifier)
                             .resetAll();
-                        ref.read(simulatedOfflineProvider.notifier).state =
-                            false;
+                        ref
+                            .read(simulatedOfflineProvider.notifier)
+                            .setOffline(false);
                         Navigator.of(sheetCtx).pop();
                       },
                       icon: const Icon(Icons.restart_alt_rounded),

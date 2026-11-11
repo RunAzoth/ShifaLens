@@ -210,25 +210,26 @@ class JourneyState {
   }
 }
 
-class JourneyController extends StateNotifier<JourneyState> {
-  final Ref _ref;
-
-  JourneyController(this._ref) : super(const JourneyState()) {
-    _initKnowledgeAndPlan();
+class JourneyController extends Notifier<JourneyState> {
+  @override
+  JourneyState build() {
+    Future.microtask(_initKnowledgeAndPlan);
+    return const JourneyState();
   }
 
   Future<void> _initKnowledgeAndPlan() async {
     try {
-      final knowledge = _ref.read(knowledgeServiceProvider);
+      final knowledge = ref.read(knowledgeServiceProvider);
       await knowledge.load();
-      final repo = _ref.read(planRepositoryProvider);
+      final repo = ref.read(planRepositoryProvider);
       final savedPlan = await repo.loadLatest();
-      if (savedPlan != null && mounted) {
+      if (savedPlan != null) {
         state = state.copyWith(
           latestPlan: savedPlan,
           ramadanMode: savedPlan.ramadan,
           ramadanDoctorApproved: savedPlan.ramadanDoctorApproved,
         );
+        ref.read(currentPlanProvider.notifier).setPlan(savedPlan);
       }
     } catch (_) {
       // Safe fallback during isolated widget tests
@@ -240,6 +241,11 @@ class JourneyController extends StateNotifier<JourneyState> {
     Uint8List bytes, {
     DemoPrescriptionId? demoId,
   }) {
+    if (demoId != null) {
+      try {
+        ref.read(activeDemoRxIndexProvider.notifier).setIndex(demoId.index);
+      } catch (_) {}
+    }
     state = state.copyWith(
       capturedImageBytes: bytes,
       activeDemoId: demoId,
@@ -258,6 +264,9 @@ class JourneyController extends StateNotifier<JourneyState> {
 
   /// Directly inject a prescription (e.g. for manual entry start or widget tests)
   void setPrescription(Prescription rx, {Uint8List? imageBytes}) {
+    try {
+      ref.read(currentPrescriptionProvider.notifier).setPrescription(rx);
+    } catch (_) {}
     state = state.copyWith(
       prescription: rx,
       capturedImageBytes: imageBytes ?? state.capturedImageBytes,
@@ -269,6 +278,9 @@ class JourneyController extends StateNotifier<JourneyState> {
 
   /// Directly inject a DailyPlan (useful for Plan Hub previews & widget tests)
   void setLatestPlan(DailyPlan plan) {
+    try {
+      ref.read(currentPlanProvider.notifier).setPlan(plan);
+    } catch (_) {}
     state = state.copyWith(
       latestPlan: plan,
       ramadanMode: plan.ramadan,
@@ -279,13 +291,17 @@ class JourneyController extends StateNotifier<JourneyState> {
   /// Begin an empty manual prescription if none is active
   void startManualPrescription() {
     if (state.prescription != null) return;
+    final emptyRx = Prescription(
+      id: 'manual-${DateTime.now().millisecondsSinceEpoch}',
+      lines: const [],
+      createdAt: DateTime.now(),
+      synthetic: true,
+    );
+    try {
+      ref.read(currentPrescriptionProvider.notifier).setPrescription(emptyRx);
+    } catch (_) {}
     state = state.copyWith(
-      prescription: Prescription(
-        id: 'manual-${DateTime.now().millisecondsSinceEpoch}',
-        lines: const [],
-        createdAt: DateTime.now(),
-        synthetic: true,
-      ),
+      prescription: emptyRx,
       keptAsPharmacistIds: {},
       clearError: true,
     );
@@ -297,14 +313,18 @@ class JourneyController extends StateNotifier<JourneyState> {
         state.capturedImageBytes ?? DemoPrescriptionId.rx1.toSyntheticJpegBytes();
     state = state.copyWith(isLoading: true, clearError: true);
     try {
-      final knowledge = _ref.read(knowledgeServiceProvider);
+      final knowledge = ref.read(knowledgeServiceProvider);
       await knowledge.load();
-      final reader = _ref.read(prescriptionReaderProvider);
+      final reader = ref.read(prescriptionReaderProvider);
       final rx = await reader.read(bytes);
 
       final resolvedRx = _ensureDemoMatchIfRequested(rx, state.activeDemoId);
 
-      if (!mounted) return false;
+      try {
+        ref
+            .read(currentPrescriptionProvider.notifier)
+            .setPrescription(resolvedRx);
+      } catch (_) {}
       state = state.copyWith(
         prescription: resolvedRx,
         keptAsPharmacistIds: {},
@@ -313,7 +333,6 @@ class JourneyController extends StateNotifier<JourneyState> {
       );
       return true;
     } catch (e) {
-      if (!mounted) return false;
       state = state.copyWith(
         isLoading: false,
         errorMessage: e.toString(),
@@ -494,7 +513,7 @@ class JourneyController extends StateNotifier<JourneyState> {
   }) async {
     DailyPlan plan;
     try {
-      final engine = _ref.read(scheduleEngineProvider);
+      final engine = ref.read(scheduleEngineProvider);
       plan = engine.build(
         rx,
         ramadan: ramadan,
@@ -509,8 +528,13 @@ class JourneyController extends StateNotifier<JourneyState> {
     }
 
     try {
-      final repo = _ref.read(planRepositoryProvider);
+      final repo = ref.read(planRepositoryProvider);
       await repo.savePlan(plan);
+    } catch (_) {}
+
+    try {
+      ref.read(currentPrescriptionProvider.notifier).setPrescription(rx);
+      ref.read(currentPlanProvider.notifier).setPlan(plan);
     } catch (_) {}
 
     state = state.copyWith(
@@ -562,6 +586,9 @@ class JourneyController extends StateNotifier<JourneyState> {
     final nextMap = Map<MealSlot, String>.from(state.mealTimes.hhmm);
     nextMap[slot] = hhmm;
     final nextMealTimes = MealTimes(hhmm: nextMap);
+    try {
+      ref.read(mealTimesProvider.notifier).setMealTimes(nextMealTimes);
+    } catch (_) {}
     state = state.copyWith(mealTimes: nextMealTimes);
     if (state.remindersEnabled && state.latestPlan != null) {
       await _scheduleRemindersForApprovedState(state.latestPlan!);
@@ -591,7 +618,7 @@ class JourneyController extends StateNotifier<JourneyState> {
     state = state.copyWith(localTicksByKey: updatedTicks);
 
     try {
-      final repo = _ref.read(planRepositoryProvider);
+      final repo = ref.read(planRepositoryProvider);
       await repo.saveTick(entry);
     } catch (_) {}
   }
@@ -602,7 +629,7 @@ class JourneyController extends StateNotifier<JourneyState> {
     final plan = state.latestPlan;
     if (plan == null) return false;
     try {
-      final reminderService = _ref.read(reminderServiceProvider);
+      final reminderService = ref.read(reminderServiceProvider);
       final granted = await reminderService.requestPermissions();
       if (!granted) return false;
       await _scheduleRemindersForApprovedState(plan);
@@ -616,7 +643,7 @@ class JourneyController extends StateNotifier<JourneyState> {
 
   Future<void> cancelReminders() async {
     try {
-      final reminderService = _ref.read(reminderServiceProvider);
+      final reminderService = ref.read(reminderServiceProvider);
       await reminderService.cancelAll();
     } catch (_) {}
     state = state.copyWith(remindersEnabled: false);
@@ -624,10 +651,10 @@ class JourneyController extends StateNotifier<JourneyState> {
 
   Future<void> _scheduleRemindersForApprovedState(DailyPlan plan) async {
     try {
-      final reminderService = _ref.read(reminderServiceProvider);
+      final reminderService = ref.read(reminderServiceProvider);
       // Only schedule Ramadan layout if ramadanDoctorApproved is true; otherwise standard plan
       if (plan.ramadan && !plan.ramadanDoctorApproved && state.prescription != null) {
-        final engine = _ref.read(scheduleEngineProvider);
+        final engine = ref.read(scheduleEngineProvider);
         final standardPlan = engine.build(
           state.prescription!,
           ramadan: false,
@@ -991,6 +1018,6 @@ class JourneyController extends StateNotifier<JourneyState> {
 }
 
 final journeyControllerProvider =
-    StateNotifierProvider<JourneyController, JourneyState>(
-  (ref) => JourneyController(ref),
-);
+    NotifierProvider<JourneyController, JourneyState>(
+      JourneyController.new,
+    );

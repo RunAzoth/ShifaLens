@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../app/providers.dart';
 import '../../core/models/models.dart';
 
-/// Language display modes required by Part 3:
+/// Language display modes required by Part 3 & Part 4:
 /// Urdu / English / Both (default Both: Urdu large, English subtitle beneath).
 enum LanguageMode {
   ur,
@@ -16,8 +17,7 @@ enum LanguageMode {
   TextDirection get direction =>
       isRtlPrimary ? TextDirection.rtl : TextDirection.ltr;
 
-  Lang get primaryLang =>
-      this == LanguageMode.en ? Lang.en : Lang.ur;
+  Lang get primaryLang => this == LanguageMode.en ? Lang.en : Lang.ur;
 
   String get labelUr {
     switch (this) {
@@ -42,34 +42,60 @@ enum LanguageMode {
   }
 }
 
-class LanguageModeNotifier extends StateNotifier<LanguageMode> {
-  LanguageModeNotifier([super.initial = LanguageMode.both]);
+class LanguageModeNotifier extends Notifier<LanguageMode> {
+  @override
+  LanguageMode build() => LanguageMode.both;
 
-  void setMode(LanguageMode mode) => state = mode;
+  void setMode(LanguageMode mode) {
+    state = mode;
+    try {
+      ref.read(langProvider.notifier).setLang(mode.primaryLang);
+    } catch (_) {}
+  }
 
   void cycle() {
     switch (state) {
       case LanguageMode.both:
-        state = LanguageMode.ur;
+        setMode(LanguageMode.ur);
         break;
       case LanguageMode.ur:
-        state = LanguageMode.en;
+        setMode(LanguageMode.en);
         break;
       case LanguageMode.en:
-        state = LanguageMode.both;
+        setMode(LanguageMode.both);
         break;
     }
   }
 }
 
-/// Riverpod controller for LanguageMode (default: LanguageMode.both)
+/// Riverpod 3 NotifierProvider for LanguageMode (default: LanguageMode.both)
 final languageModeProvider =
-    StateNotifierProvider<LanguageModeNotifier, LanguageMode>(
-  (ref) => LanguageModeNotifier(),
-);
+    NotifierProvider<LanguageModeNotifier, LanguageMode>(
+      LanguageModeNotifier.new,
+    );
+
+class SimulatedOfflineNotifier extends Notifier<bool> {
+  @override
+  bool build() => false;
+
+  void setOffline(bool value) => state = value;
+}
 
 /// Simulated offline flag for Demo Tools ("simulate offline" in long-press logo drawer)
-final simulatedOfflineProvider = StateProvider<bool>((ref) => false);
+final simulatedOfflineProvider =
+    NotifierProvider<SimulatedOfflineNotifier, bool>(
+      SimulatedOfflineNotifier.new,
+    );
+
+class ConsentAcceptedNotifier extends Notifier<bool> {
+  @override
+  bool build() => false;
+
+  void setAccepted(bool value) => state = value;
+}
 
 /// Consent accepted state for Onboarding -> Home gate
-final consentAcceptedProvider = StateProvider<bool>((ref) => false);
+final consentAcceptedProvider =
+    NotifierProvider<ConsentAcceptedNotifier, bool>(
+      ConsentAcceptedNotifier.new,
+    );

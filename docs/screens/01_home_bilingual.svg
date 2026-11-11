@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="412" height="840" viewBox="0 0 412 840">
+  <rect width="412" height="840" fill="#FFFBF5"/>
+  <!-- Clinic Header Card -->
+  <rect x="20" y="24" width="372" height="176" rx="24" fill="#FFFFFF" stroke="#E5DEC9" stroke-width="1.5"/>
+  <rect x="36" y="40" width="60" height="60" rx="18" fill="#0F766E"/>
+  <text x="66" y="79" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#FFFFFF">✚</text>
+  <text x="372" y="64" text-anchor="end" font-family="sans-serif" font-size="22" font-weight="bold" fill="#115E59">شفا لینز — آپ کا مہربان فارماسسٹ</text>
+  <text x="112" y="92" font-family="sans-serif" font-size="16" font-weight="bold" fill="#115E59">ShifaLens • Friendly Pharmacist</text>
+  <!-- Language Toggle Pill -->
+  <rect x="76" y="132" width="260" height="48" rx="16" fill="#F7F2EA" stroke="#E5DEC9"/>
+  <rect x="82" y="136" width="84" height="40" rx="12" fill="#0F766E"/>
+  <text x="124" y="161" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Both • دونوں</text>
+  <text x="210" y="161" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#1F2937">صرف اردو</text>
+  <text x="292" y="161" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#1F2937">English</text>
+
+  <!-- Hero Action Button: Take a photo -->
+  <rect x="20" y="220" width="372" height="88" rx="24" fill="#0F766E"/>
+  <rect x="36" y="240" width="48" height="48" rx="14" fill="#115E59"/>
+  <text x="60" y="272" text-anchor="middle" font-size="24" fill="#FFFFFF">📷</text>
+  <text x="368" y="256" text-anchor="end" font-family="sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF">نسخے کی تصویر لیں (کیمرہ)</text>
+  <text x="100" y="284" font-family="sans-serif" font-size="15" fill="#CCFBF1">Take a photo of the prescription</text>
+
+  <!-- Secondary Button: Gallery -->
+  <rect x="20" y="322" width="372" height="78" rx="24" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.5"/>
+  <text x="368" y="356" text-anchor="end" font-family="sans-serif" font-size="19" font-weight="bold" fill="#1F2937">گیلری سے تصویر منتخب کریں</text>
+  <text x="40" y="380" font-family="sans-serif" font-size="15" fill="#4B5563">Choose from gallery</text>
+
+  <!-- Demo Prescriptions 1 / 2 / 3 -->
+  <rect x="20" y="420" width="372" height="292" rx="24" fill="#FFFFFF" stroke="#E5DEC9" stroke-width="1.5"/>
+  <text x="372" y="454" text-anchor="end" font-family="sans-serif" font-size="19" font-weight="bold" fill="#1F2937">ڈیمو نسخے آزمائیں (فرضی مریض ۱، ۲، ۳)</text>
+  <text x="36" y="476" font-family="sans-serif" font-size="14" font-weight="bold" fill="#4B5563">Try Synthetic Demo Prescriptions (Rx 1 / 2 / 3)</text>
+
+  <rect x="36" y="492" width="340" height="62" rx="16" fill="#F7F2EA"/>
+  <circle cx="64" cy="523" r="18" fill="#0F766E"/>
+  <text x="64" y="529" text-anchor="middle" font-size="15" font-weight="bold" fill="#FFFFFF">A</text>
+  <text x="94" y="518" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1F2937">Demo Rx 1: Infection + Flagged Line</text>
+  <text x="94" y="538" font-family="sans-serif" font-size="13" fill="#4B5563">Augmentin, Panadol, Risek + 1 unclear</text>
+
+  <rect x="36" y="564" width="340" height="62" rx="16" fill="#F7F2EA"/>
+  <rect x="46" y="581" width="36" height="28" rx="14" fill="#B45309"/>
+  <text x="64" y="600" text-anchor="middle" font-size="15" font-weight="bold" fill="#FFFFFF">B</text>
+  <text x="94" y="590" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1F2937">Demo Rx 2: Chronic (Diabetes &amp; BP)</text>
+  <text x="94" y="610" font-family="sans-serif" font-size="13" fill="#4B5563">Glucophage, Norvasc, Lipitor x30d</text>
+
+  <rect x="36" y="636" width="340" height="62" rx="16" fill="#F7F2EA"/>
+  <polygon points="64,648 82,680 46,680" fill="#3730A3"/>
+  <text x="64" y="676" text-anchor="middle" font-size="13" font-weight="bold" fill="#FFFFFF">C</text>
+  <text x="94" y="662" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1F2937">Demo Rx 3: Duplicate + Separation</text>
+  <text x="94" y="682" font-family="sans-serif" font-size="13" fill="#4B5563">Cipro, Iron, Panadol + Calpol Alert</text>
+
+  <!-- Prototype Safety Banner -->
+  <rect x="20" y="732" width="372" height="84" rx="20" fill="#F7F2EA" stroke="#E5DEC9" stroke-width="1.5"/>
+  <text x="372" y="764" text-anchor="end" font-family="sans-serif" font-size="18" font-weight="bold" fill="#1F2937">یہ ایک تجرباتی نمونہ ہے، طبی آلہ نہیں۔</text>
+  <text x="36" y="794" font-family="sans-serif" font-size="14" font-weight="bold" fill="#4B5563">Prototype. Not a medical device.</text>
+</svg>

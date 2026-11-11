@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="412" height="840" viewBox="0 0 412 840">
+  <rect width="412" height="840" fill="#FFFBF5"/>
+  <!-- Medicine Detail Header -->
+  <circle cx="56" cy="58" r="26" fill="#0F766E"/>
+  <text x="56" y="66" text-anchor="middle" font-size="20" font-weight="bold" fill="#FFFFFF">A</text>
+  <text x="96" y="54" font-family="sans-serif" font-size="20" font-weight="bold" fill="#1F2937">Augmentin 625 mg</text>
+  <text x="96" y="76" font-family="sans-serif" font-size="14" fill="#4B5563">Amoxicillin + Clavulanic Acid</text>
+
+  <!-- Food Pictogram Card 1: Take with food -->
+  <rect x="20" y="106" width="372" height="176" rx="24" fill="#FFFFFF" stroke="#16A34A" stroke-width="1.8"/>
+  <rect x="36" y="124" width="60" height="60" rx="18" fill="#DCFCE7"/>
+  <text x="66" y="164" text-anchor="middle" font-size="28">🍽️</text>
+  <text x="340" y="148" text-anchor="end" font-family="sans-serif" font-size="18" font-weight="bold" fill="#166534">کھانے کے ساتھ یا فوراً بعد لیں</text>
+  <text x="110" y="174" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1F2937">Take with or right after a meal</text>
+  <text x="36" y="210" font-family="sans-serif" font-size="14" fill="#4B5563">Taking with food protects your stomach from irritation.</text>
+  <!-- Pending Pharmacist Review Badge -->
+  <rect x="36" y="232" width="260" height="36" rx="12" fill="#FEF3C7" stroke="#D97706"/>
+  <text x="50" y="255" font-family="sans-serif" font-size="13" font-weight="bold" fill="#92400E">⏳ Pending pharmacist review • جائزہ باقی ہے</text>
+
+  <!-- Calm Common Side Effects Card -->
+  <rect x="20" y="302" width="372" height="176" rx="24" fill="#F0FDFA" stroke="#0F766E" stroke-width="1.5"/>
+  <text x="372" y="338" text-anchor="end" font-family="sans-serif" font-size="19" font-weight="bold" fill="#115E59">عام اور معمولی اثرات (گھبرانے کی بات نہیں):</text>
+  <text x="36" y="364" font-family="sans-serif" font-size="15" font-weight="bold" fill="#115E59">Common effects (usually mild):</text>
+  <text x="36" y="396" font-family="sans-serif" font-size="15" fill="#1F2937">ہلکی متلی یا پیٹ کی خرابی ہو سکتی ہے۔</text>
+  <text x="36" y="420" font-family="sans-serif" font-size="14" fill="#4B5563">Mild nausea or loose stools may occur.</text>
+  <rect x="36" y="432" width="260" height="34" rx="12" fill="#FEF3C7" stroke="#D97706"/>
+  <text x="50" y="454" font-family="sans-serif" font-size="13" font-weight="bold" fill="#92400E">⏳ Pending pharmacist review</text>
+
+  <!-- Distinct Red-Tinted "Call your doctor if..." Card -->
+  <rect x="20" y="498" width="372" height="220" rx="24" fill="#FEE2E2" stroke="#DC2626" stroke-width="2.2"/>
+  <text x="372" y="534" text-anchor="end" font-family="sans-serif" font-size="20" font-weight="bold" fill="#991B1B">🚨 فوراً اپنے ڈاکٹر سے رابطہ کریں اگر:</text>
+  <text x="36" y="560" font-family="sans-serif" font-size="16" font-weight="bold" fill="#991B1B">Call your doctor if...</text>
+  <text x="36" y="596" font-family="sans-serif" font-size="16" font-weight="bold" fill="#991B1B">• جسم پر شدید خارش، سرخ دانے یا سوجن ہو</text>
+  <text x="36" y="620" font-family="sans-serif" font-size="14" fill="#1F2937">• Severe skin rash, itching, or facial swelling</text>
+  <text x="36" y="652" font-family="sans-serif" font-size="16" font-weight="bold" fill="#991B1B">• سانس لینے میں دشواری یا شدید اسہال ہو</text>
+  <text x="36" y="676" font-family="sans-serif" font-size="14" fill="#1F2937">• Difficulty breathing or severe watery diarrhea</text>
+</svg>

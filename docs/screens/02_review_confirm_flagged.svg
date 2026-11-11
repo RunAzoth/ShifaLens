@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="412" height="840" viewBox="0 0 412 840">
+  <rect width="412" height="840" fill="#FFFBF5"/>
+  <!-- Pinned Zoomable Prescription Thumbnail -->
+  <rect x="20" y="20" width="372" height="106" rx="20" fill="#1F2937" stroke="#D97706" stroke-width="2"/>
+  <text x="36" y="50" font-family="monospace" font-size="14" font-weight="bold" fill="#CCFBF1">Rx Prescription Scan (Pinch to zoom)</text>
+  <text x="36" y="74" font-family="monospace" font-size="13" fill="#FFFFFF">1. Tab. Augmentin 625 mg 1+0+1 x5d</text>
+  <text x="36" y="96" font-family="monospace" font-size="13" fill="#FDE68A">4. Tab. ????? 1+0+1 (Low confidence)</text>
+
+  <!-- AI Tag -->
+  <rect x="20" y="138" width="372" height="54" rx="16" fill="#F0FDFA" stroke="#0F766E" stroke-width="1.4"/>
+  <text x="372" y="162" text-anchor="end" font-family="sans-serif" font-size="16" font-weight="bold" fill="#115E59">مصنوعی ذہانت (AI) سے پڑھا گیا: فارماسسٹ سے تصدیق کریں</text>
+  <text x="36" y="182" font-family="sans-serif" font-size="13" font-weight="bold" fill="#4B5563">AI-generated: verify with your pharmacist</text>
+
+  <!-- Confirmed Medicine Card: Augmentin -->
+  <rect x="20" y="204" width="372" height="156" rx="24" fill="#FFFFFF" stroke="#E5DEC9" stroke-width="1.5"/>
+  <circle cx="56" cy="246" r="24" fill="#0F766E"/>
+  <text x="56" y="254" text-anchor="middle" font-size="20" font-weight="bold" fill="#FFFFFF">A</text>
+  <text x="92" y="240" font-family="sans-serif" font-size="18" font-weight="bold" fill="#1F2937">Tablet • Augmentin 625 mg</text>
+  <text x="92" y="264" font-family="sans-serif" font-size="14" fill="#4B5563">Generic: Amoxicillin + Clavulanic Acid</text>
+  <rect x="36" y="288" width="156" height="52" rx="12" fill="#DCFCE7" stroke="#16A34A"/>
+  <text x="48" y="312" font-family="sans-serif" font-size="13" font-weight="bold" fill="#166534">✓ Name: Augmentin (96%)</text>
+  <rect x="204" y="288" width="168" height="52" rx="12" fill="#DCFCE7" stroke="#16A34A"/>
+  <text x="216" y="312" font-family="sans-serif" font-size="13" font-weight="bold" fill="#166534">✓ Freq: 1+0+1 (94%)</text>
+
+  <!-- Amber Flagged Card: Tab. ????? -->
+  <rect x="20" y="374" width="372" height="332" rx="24" fill="#FEF3C7" stroke="#D97706" stroke-width="2.2"/>
+  <rect x="36" y="390" width="340" height="54" rx="14" fill="#FFFFFF" stroke="#D97706"/>
+  <text x="360" y="414" text-anchor="end" font-family="sans-serif" font-size="16" font-weight="bold" fill="#92400E">⚠ فارماسسٹ سے پوچھیں — لکھائی غیر واضح ہے</text>
+  <text x="48" y="434" font-family="sans-serif" font-size="13" font-weight="bold" fill="#92400E">Ask your pharmacist — low confidence reading</text>
+
+  <rect x="36" y="458" width="44" height="44" rx="8" fill="#15803D"/>
+  <text x="58" y="487" text-anchor="middle" font-size="18" font-weight="bold" fill="#FFFFFF">D</text>
+  <text x="92" y="478" font-family="sans-serif" font-size="18" font-weight="bold" fill="#1F2937">Tab. ????? (1+0+1)</text>
+  <text x="92" y="500" font-family="sans-serif" font-size="14" fill="#991B1B">Name Confidence: 24% • Strength: Unknown</text>
+
+  <!-- 3 One-Tap Resolution Actions -->
+  <rect x="36" y="518" width="340" height="52" rx="16" fill="#0F766E"/>
+  <text x="206" y="549" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF">1. Fix it (edit medicine) • خود درست کریں</text>
+
+  <rect x="36" y="580" width="340" height="52" rx="16" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.5"/>
+  <text x="206" y="611" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#115E59">2. Keep as "ask pharmacist" (Not scheduled)</text>
+
+  <rect x="36" y="642" width="340" height="48" rx="16" fill="#FEE2E2" stroke="#DC2626"/>
+  <text x="206" y="671" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#991B1B">3. Remove from list • ہٹا دیں</text>
+
+  <!-- Disabled Confirm Button until Flagged Line Resolved -->
+  <rect x="20" y="726" width="372" height="92" rx="24" fill="#F7F2EA" stroke="#E5DEC9" stroke-width="1.5"/>
+  <text x="206" y="758" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#92400E">Resolve 1 flagged item above to unlock Confirm</text>
+  <text x="206" y="790" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#6B7280">Confirm and make my plan (4 medicines)</text>
+</svg>

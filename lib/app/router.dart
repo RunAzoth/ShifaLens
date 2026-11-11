@@ -4,13 +4,19 @@ import 'package:go_router/go_router.dart';
 import '../ui/screens/screens.dart';
 
 /// ShifaLens GoRouter configuration [Owner: Person B]
-/// Core user journey:
+/// Full user journey (Part 3 + Part 4):
 /// Splash (/) -> Onboarding (/onboarding) -> Home (/home) ->
 /// Capture (/capture) -> AI Reading (/reading) -> Review & Confirm (/review) ->
-/// Daily Plan (/plan)
+/// Plan Hub (/plan: Today, Medicines, Ask, Reminders) ->
+/// Extras: Strip Matching (/strips), Print Card/Stickers (/print),
+/// Plate Guide (/plate-guide), About & Responsible AI (/about).
 final routerProvider = Provider<GoRouter>((ref) {
+  return createAppRouter();
+});
+
+GoRouter createAppRouter({String initialLocation = '/'}) {
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: initialLocation,
     routes: <RouteBase>[
       GoRoute(
         path: '/',
@@ -59,47 +65,39 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/plan',
         name: 'plan',
         builder: (BuildContext context, GoRouterState state) {
-          return const PlanPlaceholderScreen();
+          final tabParam = state.uri.queryParameters['tab'];
+          final initialTab = int.tryParse(tabParam ?? '0') ?? 0;
+          return PlanHubScreen(initialTabIndex: initialTab);
         },
       ),
-    ],
-  );
-});
-
-/// Convenience builder for creating a standalone GoRouter in tests or main.dart
-GoRouter createAppRouter({String initialLocation = '/'}) {
-  return GoRouter(
-    initialLocation: initialLocation,
-    routes: <RouteBase>[
       GoRoute(
-        path: '/',
-        builder: (_, _) => const SplashScreen(),
+        path: '/strips',
+        name: 'strips',
+        builder: (BuildContext context, GoRouterState state) {
+          return const StripMatchingScreen();
+        },
       ),
       GoRoute(
-        path: '/onboarding',
-        builder: (_, _) => const OnboardingScreen(),
+        path: '/print',
+        name: 'print',
+        builder: (BuildContext context, GoRouterState state) {
+          final mode = PrintMode.fromQuery(state.uri.queryParameters['mode']);
+          return PrintScreen(initialMode: mode);
+        },
       ),
       GoRoute(
-        path: '/home',
-        builder: (_, _) => const HomeScreen(),
+        path: '/plate-guide',
+        name: 'plate_guide',
+        builder: (BuildContext context, GoRouterState state) {
+          return const PlateGuideScreen();
+        },
       ),
       GoRoute(
-        path: '/capture',
-        builder: (_, state) => CaptureScreen(
-          initialSource: state.uri.queryParameters['source'] ?? 'camera',
-        ),
-      ),
-      GoRoute(
-        path: '/reading',
-        builder: (_, _) => const AiReadingScreen(),
-      ),
-      GoRoute(
-        path: '/review',
-        builder: (_, _) => const ReviewConfirmScreen(),
-      ),
-      GoRoute(
-        path: '/plan',
-        builder: (_, _) => const PlanPlaceholderScreen(),
+        path: '/about',
+        name: 'about',
+        builder: (BuildContext context, GoRouterState state) {
+          return const AboutScreen();
+        },
       ),
     ],
   );

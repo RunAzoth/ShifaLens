@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="412" height="840" viewBox="0 0 412 840">
+  <rect width="412" height="840" fill="#FFFBF5"/>
+  <!-- Picture Suggestion Chips -->
+  <text x="372" y="44" text-anchor="end" font-family="sans-serif" font-size="20" font-weight="bold" fill="#115E59">اپنی دوائیوں کے بارے میں آسان اردو میں پوچھیں</text>
+  <text x="20" y="68" font-family="sans-serif" font-size="15" font-weight="bold" fill="#4B5563">Ask Grounded Questions About Your Plan</text>
+
+  <rect x="20" y="84" width="178" height="58" rx="16" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.4"/>
+  <text x="109" y="110" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1F2937">🍵 چائے کے ساتھ لے سکتے ہیں؟</text>
+  <text x="109" y="128" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#4B5563">Can I take it with tea?</text>
+
+  <rect x="214" y="84" width="178" height="58" rx="16" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.4"/>
+  <text x="303" y="110" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1F2937">✋ کیا دوا جلدی چھوڑ دوں؟</text>
+  <text x="303" y="128" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#4B5563">Can I stop early?</text>
+
+  <!-- User Question Bubble -->
+  <rect x="100" y="164" width="292" height="72" rx="20" fill="#CCFBF1" stroke="#0F766E"/>
+  <text x="376" y="196" text-anchor="end" font-family="sans-serif" font-size="16" font-weight="bold" fill="#115E59">کیا میں دوا وقت سے پہلے چھوڑ سکتا ہوں؟</text>
+  <text x="116" y="220" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1F2937">Can I stop early?</text>
+
+  <!-- Grounded Answer Bubble with Escalate to Pharmacist Card -->
+  <rect x="20" y="254" width="372" height="440" rx="24" fill="#FFFFFF" stroke="#D97706" stroke-width="2"/>
+
+  <!-- Escalate to Pharmacist Card -->
+  <rect x="36" y="272" width="340" height="92" rx="16" fill="#FEF3C7" stroke="#D97706" stroke-width="1.6"/>
+  <text x="360" y="304" text-anchor="end" font-family="sans-serif" font-size="16" font-weight="bold" fill="#92400E">⚠ اپنے فارماسسٹ یا ڈاکٹر سے پوچھیں</text>
+  <text x="48" y="332" font-family="sans-serif" font-size="14" font-weight="bold" fill="#92400E">Ask your pharmacist or doctor — never stop</text>
+  <text x="48" y="350" font-family="sans-serif" font-size="14" font-weight="bold" fill="#92400E">or change a dose on your own</text>
+
+  <!-- Bilingual Grounded Answer -->
+  <text x="372" y="400" text-anchor="end" font-family="sans-serif" font-size="18" font-weight="bold" fill="#1F2937">اینٹی بائیوٹک (Augmentin) کا پورا کورس مکمل کرنا ضروری ہے۔</text>
+  <text x="372" y="428" text-anchor="end" font-family="sans-serif" font-size="18" font-weight="bold" fill="#1F2937">ڈاکٹر کے مشورے کے بغیر دوا بند نہ کریں۔</text>
+  <text x="36" y="466" font-family="sans-serif" font-size="15" fill="#4B5563">Please complete the full prescribed course of</text>
+  <text x="36" y="488" font-family="sans-serif" font-size="15" fill="#4B5563">Augmentin (5 days). Do not stop early without</text>
+  <text x="36" y="510" font-family="sans-serif" font-size="15" fill="#4B5563">speaking to your doctor or pharmacist.</text>
+
+  <!-- Listen Button + Grounded Source Chip -->
+  <rect x="36" y="534" width="160" height="44" rx="14" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.5"/>
+  <text x="116" y="561" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#115E59">🔊 Listen • سنیں</text>
+
+  <rect x="208" y="534" width="168" height="44" rx="14" fill="#F7F2EA" stroke="#E5DEC9"/>
+  <text x="292" y="561" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1F2937">📖 Source: Curated Table</text>
+
+  <!-- AI Tag inside bubble -->
+  <rect x="36" y="596" width="340" height="52" rx="14" fill="#F0FDFA" stroke="#0F766E"/>
+  <text x="206" y="627" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#115E59">✨ AI-generated: verify with your pharmacist</text>
+
+  <!-- Bottom Hold-to-Talk Mic + Text Input Bar -->
+  <rect x="0" y="736" width="412" height="104" fill="#FFFFFF" stroke="#E5DEC9"/>
+  <rect x="20" y="756" width="56" height="56" rx="18" fill="#FEF3C7" stroke="#B45309" stroke-width="1.8"/>
+  <text x="48" y="792" text-anchor="middle" font-size="24">🎙️</text>
+  <rect x="88" y="756" width="236" height="56" rx="18" fill="#FFFBF5" stroke="#E5DEC9"/>
+  <text x="104" y="790" font-family="sans-serif" font-size="14" fill="#6B7280">Ask a question... • اپنا سوال لکھیں</text>
+  <rect x="336" y="756" width="56" height="56" rx="18" fill="#0F766E"/>
+  <text x="364" y="791" text-anchor="middle" font-size="20" fill="#FFFFFF">➤</text>
+</svg>

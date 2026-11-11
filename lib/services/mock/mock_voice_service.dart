@@ -32,10 +32,14 @@ class MockVoiceService implements VoiceService {
 
   @override
   Future<File> synthesizeToFile(String textUr) async {
-    final dir = Directory.systemTemp;
-    final file = File('${dir.path}/shifalens_plan_urdu.wav');
-    await file.writeAsBytes(buildMinimalWavBytes());
-    return file;
+    try {
+      final dir = Directory.systemTemp;
+      final file = File('${dir.path}/shifalens_plan_urdu.wav');
+      await file.writeAsBytes(buildMinimalWavBytes());
+      return file;
+    } catch (_) {
+      return File('shifalens_plan_urdu.wav');
+    }
   }
 
   @override

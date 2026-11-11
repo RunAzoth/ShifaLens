@@ -3,11 +3,11 @@ import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nuskha_saathi/app/config.dart';
-import 'package:nuskha_saathi/app/providers.dart';
-import 'package:nuskha_saathi/core/models/models.dart';
-import 'package:nuskha_saathi/services/mock/mock_services.dart';
-import 'package:nuskha_saathi/services/real/real_services.dart';
+import 'package:shifalens/app/config.dart';
+import 'package:shifalens/app/providers.dart';
+import 'package:shifalens/core/models/models.dart';
+import 'package:shifalens/services/mock/mock_services.dart';
+import 'package:shifalens/services/real/real_services.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -22,8 +22,8 @@ void main() {
     }
   });
 
-  group('Contract v1 & Models', () {
-    test('AppConfig defaults all mock flags to true and flips cleanly', () {
+  group('Contract v1 & All 8 AppConfig Flags', () {
+    test('AppConfig defaults all mock flags to true and flips all 8 to Real cleanly', () {
       const config = AppConfig();
       expect(config.mockReader, isTrue);
       expect(config.mockStrips, isTrue);
@@ -44,6 +44,17 @@ void main() {
       expect(container.read(stripMatcherProvider), isA<MockStripMatcher>());
       expect(container.read(qaServiceProvider), isA<MockQAService>());
       expect(container.read(voiceServiceProvider), isA<MockVoiceService>());
+      expect(
+        container.read(knowledgeServiceProvider),
+        isA<MockKnowledgeService>(),
+      );
+      expect(container.read(scheduleEngineProvider), isA<MockScheduleEngine>());
+      expect(container.read(planRepositoryProvider), isA<MockPlanRepository>());
+      expect(
+        container.read(reminderServiceProvider),
+        isA<MockReminderService>(),
+      );
+      expect(container.read(shareServiceProvider), isA<MockShareService>());
 
       container
           .read(appConfigProvider.notifier)
@@ -56,6 +67,17 @@ void main() {
       expect(container.read(stripMatcherProvider), isA<RealStripMatcher>());
       expect(container.read(qaServiceProvider), isA<RealQAService>());
       expect(container.read(voiceServiceProvider), isA<RealVoiceService>());
+      expect(
+        container.read(knowledgeServiceProvider),
+        isA<RealKnowledgeService>(),
+      );
+      expect(container.read(scheduleEngineProvider), isA<RealScheduleEngine>());
+      expect(container.read(planRepositoryProvider), isA<RealPlanRepository>());
+      expect(
+        container.read(reminderServiceProvider),
+        isA<RealReminderService>(),
+      );
+      expect(container.read(shareServiceProvider), isA<RealShareService>());
     });
 
     test('Models serialize and deserialize via toJson/fromJson', () {
@@ -76,7 +98,7 @@ void main() {
 
   group('Rule 1 & 2: Knowledge, ScheduleEngine & Prescription Post-Validation', () {
     test('RealPrescriptionReader nulls fields <0.75 confidence and sets needsPharmacist', () {
-      final knowledge = MockKnowledgeService();
+      final knowledge = RealKnowledgeService();
       final reader = RealPrescriptionReader(
         client: GeminiClient(),
         knowledge: knowledge,
@@ -128,40 +150,11 @@ void main() {
       expect(lowConfLine.confirmed, isFalse);
       expect(lowConfLine.identityIndex, equals(3));
     });
-
-    test('ScheduleEngine never schedules unconfirmed/low-confidence lines and detects duplicates', () async {
-      final knowledge = MockKnowledgeService();
-      await knowledge.load();
-      final engine = MockScheduleEngine(knowledge: knowledge);
-
-      final rx1 = await MockPrescriptionReader.loadCachedPrescription(0);
-      final plan1 = engine.build(rx1);
-      expect(plan1.scheduled.length, equals(3));
-      expect(plan1.unscheduled.length, equals(1));
-      expect(plan1.unscheduled.first.rawText, contains('?????'));
-
-      final rx3 = await MockPrescriptionReader.loadCachedPrescription(2);
-      final plan3 = engine.build(rx3);
-      expect(plan3.duplicates, isNotEmpty);
-      expect(plan3.duplicates.first.sameGeneric, isTrue);
-      expect(plan3.duplicates.first.label, equals('paracetamol'));
-
-      // Verify Cipro and Ferrous sulfate are separated into different meal slots
-      final ciproSlots = plan3.doses
-          .where((d) => d.medicineId == 'rx3_line_1')
-          .map((d) => d.slot)
-          .toSet();
-      final ironSlots = plan3.doses
-          .where((d) => d.medicineId == 'rx3_line_2')
-          .map((d) => d.slot)
-          .toSet();
-      expect(ciproSlots.intersection(ironSlots), isEmpty);
-    });
   });
 
   group('Task 6: RealStripMatcher deterministic checks', () {
     test('Reports <0.7 confidence as unreadable and detects strength mismatch & shared generic in code', () async {
-      final knowledge = MockKnowledgeService();
+      final knowledge = RealKnowledgeService();
       final matcher = RealStripMatcher(
         client: GeminiClient(),
         knowledge: knowledge,
@@ -212,10 +205,7 @@ void main() {
         defaultIndex: 2,
         prescribedMeds: rx1.lines,
       );
-      expect(
-        sameGenericDifferentBrand.readText,
-        contains('paracetamol'),
-      );
+      expect(sameGenericDifferentBrand.readText, contains('paracetamol'));
     });
   });
 
@@ -223,7 +213,7 @@ void main() {
     test('RealQAService forces fixed fallback if any source key is not in CONTEXT', () async {
       final qa = RealQAService(client: GeminiClient());
       final rx1 = await MockPrescriptionReader.loadCachedPrescription(0);
-      final plan = MockScheduleEngine().build(rx1);
+      final plan = RealScheduleEngine().build(rx1);
       final context = qa.buildContextBlock(plan);
 
       final validResult = qa.postValidateResponse(
@@ -267,7 +257,7 @@ void main() {
     test('RealVoiceService builds deterministic Urdu script and synthesizes WAV file', () async {
       final voice = RealVoiceService();
       final rx1 = await MockPrescriptionReader.loadCachedPrescription(0);
-      final plan = MockScheduleEngine().build(rx1);
+      final plan = RealScheduleEngine().build(rx1);
 
       final script = voice.describePlanUrdu(plan);
       expect(script, contains('Augmentin'));

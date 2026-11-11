@@ -1,0 +1,258 @@
+[
+  {
+    "id": "food_cipro_1",
+    "generic": "ciprofloxacin",
+    "type": "separateFrom",
+    "iconKey": "no_dairy_iron",
+    "title": {
+      "ur": "دودھ، دہی، کیلشیم، تیزابیت کی دوا اور آئرن سے 2 گھنٹے وقفہ رکھیں",
+      "en": "Separate by 2 hours from dairy, calcium, antacids, and iron"
+    },
+    "body": {
+      "ur": "دودھ، دہی، لسی، کیلشیم، اینٹاسڈ یا آئرن کی گولی اس دوا کے اثر کو کم کر دیتی ہے۔ سادہ پانی زیادہ پئیں۔",
+      "en": "Milk, yogurt, lassi, calcium, antacids, or iron tablets block absorption of this antibiotic. Take with plain water."
+    },
+    "reviewed": false,
+    "source": "BNF / FDA Fluoroquinolone Counseling Guide (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_doxy_1",
+    "generic": "doxycycline",
+    "type": "separateFrom",
+    "iconKey": "no_dairy_iron",
+    "title": {
+      "ur": "دودھ، کیلشیم اور آئرن سے 2 گھنٹے الگ رکھیں اور بیٹھ کر پانی پئیں",
+      "en": "Separate by 2 hours from dairy/iron and take sitting upright"
+    },
+    "body": {
+      "ur": "دودھ اور آئرن کی گولی سے وقفہ رکھیں۔ گولی کھانے کے بعد کم از کم 30 منٹ تک سیدھے بیٹھیں۔",
+      "en": "Keep apart from milk, antacids, and iron. Stay upright for 30 minutes after swallowing with a full glass of water."
+    },
+    "reviewed": false,
+    "source": "BNF Tetracycline Counseling Guidance (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_iron_1",
+    "generic": "ferrous sulfate",
+    "type": "separateFrom",
+    "iconKey": "no_tea_dairy",
+    "title": {
+      "ur": "تیز چائے، کافی، دودھ اور اینٹی بائیوٹک سے 2 گھنٹے الگ رکھیں",
+      "en": "Keep 2 hours apart from strong chai, coffee, milk, and antibiotics"
+    },
+    "body": {
+      "ur": "چائے، کافی یا دودھ جسم میں آئرن کو جذب ہونے سے روکتے ہیں۔ اگر خالی پیٹ متلی ہو تو کھانے کے بعد لے سکتے ہیں۔",
+      "en": "Strong tea (chai), coffee, and milk reduce iron absorption. If it upsets an empty stomach, take after food away from tea/milk."
+    },
+    "reviewed": false,
+    "source": "WHO / BNF Oral Iron Supplementation Guide (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_ibuprofen_1",
+    "generic": "ibuprofen",
+    "type": "takeWithFood",
+    "iconKey": "meal_plate",
+    "title": {
+      "ur": "معدے کی حفاظت کے لیے کھانے کے ساتھ یا بعد میں لیں",
+      "en": "Take with or right after food to protect your stomach"
+    },
+    "body": {
+      "ur": "خالی پیٹ درد کی یہ دوا لینے سے معدے میں جلن یا تیزابیت ہو سکتی ہے۔ کھانے یا دودھ کے بعد لیں۔",
+      "en": "Taking NSAID pain relievers on an empty stomach can irritate the stomach lining. Take with or immediately after food."
+    },
+    "reviewed": false,
+    "source": "BNF NSAID Patient Guidance (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_mefenamic_1",
+    "generic": "mefenamic acid",
+    "type": "takeWithFood",
+    "iconKey": "meal_plate",
+    "title": {
+      "ur": "کھانے کے ساتھ یا کھانے کے فوراً بعد لیں",
+      "en": "Take with or immediately after meals"
+    },
+    "body": {
+      "ur": "پیٹ میں جلن اور درد سے بچنے کے لیے یہ دوا ہمیشہ کھانے کے بعد پانی کے ساتھ لیں۔",
+      "en": "Always take this pain medicine after food with water to reduce stomach irritation."
+    },
+    "reviewed": false,
+    "source": "BNF NSAID Patient Guidance (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_diclofenac_1",
+    "generic": "diclofenac",
+    "type": "takeWithFood",
+    "iconKey": "meal_plate",
+    "title": {
+      "ur": "کھانے کے بعد پانی کے ساتھ لیں",
+      "en": "Take after food with water"
+    },
+    "body": {
+      "ur": "معدے کی تیزابیت سے بچاؤ کے لیے کھانے کے بعد استعمال کریں۔ درد کی دوسری دوا ساتھ نہ لیں۔",
+      "en": "Take after meals to reduce stomach upset. Do not combine with other NSAID pain medicines."
+    },
+    "reviewed": false,
+    "source": "BNF NSAID Patient Guidance (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_metformin_1",
+    "generic": "metformin",
+    "type": "takeWithFood",
+    "iconKey": "meal_plate",
+    "title": {
+      "ur": "کھانے کے دوران یا کھانے کے فوراً بعد لیں",
+      "en": "Take with or right after meals"
+    },
+    "body": {
+      "ur": "کھانے کے ساتھ لینے سے پیٹ میں مروڑ، متلی اور بدہضمی کم ہوتی ہے۔ اپنے کھانے کے اوقات باقاعدہ رکھیں۔",
+      "en": "Taking metformin with meals reduces nausea, stomach cramps, and diarrhea. Keep your meal times steady."
+    },
+    "reviewed": false,
+    "source": "ADA / BNF Metformin Counseling Guide (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_metronidazole_1",
+    "generic": "metronidazole",
+    "type": "avoid",
+    "iconKey": "avoid_alcohol",
+    "title": {
+      "ur": "کھانے کے بعد لیں اور الکحل والی اشیاء سے مکمل پرہیز کریں",
+      "en": "Take with food and strictly avoid alcohol"
+    },
+    "body": {
+      "ur": "یہ دوا کھانے کے بعد پانی کے ساتھ لیں۔ کورس کے دوران اور بعد میں الکحل والی مصنوعات سے شدید متلی ہو سکتی ہے۔",
+      "en": "Take with or after food to reduce metallic taste and nausea. Strictly avoid alcohol during and for 48 hours after treatment."
+    },
+    "reviewed": false,
+    "source": "BNF / WHO Metronidazole Advisory (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_omeprazole_1",
+    "generic": "omeprazole",
+    "type": "emptyStomach",
+    "iconKey": "empty_stomach",
+    "title": {
+      "ur": "ناشتے سے 30 منٹ پہلے خالی پیٹ لیں",
+      "en": "Take 30 minutes before breakfast on an empty stomach"
+    },
+    "body": {
+      "ur": "کیپسول کو ثابت نگلیں، چبائیں یا کھولیں نہیں۔ کھانے سے آدھا گھنٹہ پہلے لینے سے تیزابیت پر بہتر اثر ہوتا ہے۔",
+      "en": "Swallow the capsule whole with water; do not chew or crush. Taking 30 minutes before breakfast makes it work best."
+    },
+    "reviewed": false,
+    "source": "Getz Pharma / BNF PPI Administration Guide (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_esomeprazole_1",
+    "generic": "esomeprazole",
+    "type": "emptyStomach",
+    "iconKey": "empty_stomach",
+    "title": {
+      "ur": "کھانے سے کم از کم 30 منٹ پہلے خالی پیٹ لیں",
+      "en": "Take at least 30 minutes before food on an empty stomach"
+    },
+    "body": {
+      "ur": "کیپسول یا گولی کو پانی کے ساتھ ثابت نگلیں اور کھانے سے پہلے لیں۔",
+      "en": "Swallow whole with water at least 30 minutes before a meal."
+    },
+    "reviewed": false,
+    "source": "BNF PPI Administration Guide (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_atorvastatin_1",
+    "generic": "atorvastatin",
+    "type": "avoid",
+    "iconKey": "no_grapefruit",
+    "title": {
+      "ur": "چکوترے (Grapefruit) کے رس سے پرہیز کریں",
+      "en": "Avoid grapefruit and grapefruit juice"
+    },
+    "body": {
+      "ur": "چکوترا خون میں اس دوا کی مقدار بڑھا کر پٹھوں کے درد کا خطرہ بڑھا سکتا ہے۔ عام طور پر رات کو لی جاتی ہے۔",
+      "en": "Grapefruit juice can raise medicine levels in your blood and increase side-effect risk. Usually taken in the evening or at bedtime."
+    },
+    "reviewed": false,
+    "source": "FDA / BNF Statin Interaction Guidance (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_levothyroxine_1",
+    "generic": "levothyroxine",
+    "type": "emptyStomach",
+    "iconKey": "empty_stomach",
+    "title": {
+      "ur": "صبح ناشتے یا چائے سے 30 تا 60 منٹ پہلے خالی پیٹ لیں",
+      "en": "Take on an empty stomach 30–60 minutes before breakfast or tea"
+    },
+    "body": {
+      "ur": "سادہ پانی کے ساتھ صبح خالی پیٹ لیں۔ آئرن یا کیلشیم کی گولیوں سے کم از کم 4 گھنٹے کا وقفہ رکھیں۔",
+      "en": "Take first thing in the morning with plain water before breakfast or chai. Separate from calcium or iron by 4 hours."
+    },
+    "reviewed": false,
+    "source": "BNF / American Thyroid Association Guidance (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_warfarin_1",
+    "generic": "warfarin",
+    "type": "keepSteady",
+    "iconKey": "leafy_greens",
+    "title": {
+      "ur": "پالک، ساگ اور ہری سبزیوں کی مقدار روزانہ یکساں رکھیں",
+      "en": "Keep leafy green vegetables (palak, saag) steady from day to day"
+    },
+    "body": {
+      "ur": "ہری سبزیوں کو اچانک بہت زیادہ بڑھانے یا بالکل بند کرنے سے دوا کے اثر میں فرق آ سکتا ہے۔ خوراک میں توازن رکھیں۔",
+      "en": "Sudden big changes in green leafy vegetables (spinach, mustard greens) can change how warfarin works. Keep your intake consistent."
+    },
+    "reviewed": false,
+    "source": "NHS / BNF Anticoagulant Patient Booklet (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_amox_clav_1",
+    "generic": "amoxicillin + clavulanic acid",
+    "type": "takeWithFood",
+    "iconKey": "meal_plate",
+    "title": {
+      "ur": "کھانے کے آغاز میں یا کھانے کے ساتھ لیں",
+      "en": "Take at the start of a meal"
+    },
+    "body": {
+      "ur": "یہ اینٹی بائیوٹک کھانے کے ساتھ لینے سے پیٹ خراب یا متلی کم ہوتی ہے۔ ڈاکٹر کا تجویز کردہ پورا کورس مکمل کریں۔",
+      "en": "Taking this antibiotic with food helps reduce stomach upset or nausea. Complete the full prescribed course."
+    },
+    "reviewed": false,
+    "source": "GSK Augmentin Prescribing Info / BNF (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_amlodipine_1",
+    "generic": "amlodipine",
+    "type": "keepSteady",
+    "iconKey": "clock_steady",
+    "title": {
+      "ur": "روزانہ ایک مقررہ وقت پر لیں اور چکوترے سے بچیں",
+      "en": "Take at the same time every day; avoid large amounts of grapefruit"
+    },
+    "body": {
+      "ur": "کھانے کے ساتھ یا بغیر لیا جا سکتا ہے مگر وقت روزانہ ایک جیسا رکھیں۔ چکوترے کے رس سے پرہیز کریں۔",
+      "en": "Can be taken with or without food at the same time daily. Avoid large amounts of grapefruit juice."
+    },
+    "reviewed": false,
+    "source": "BNF Calcium-Channel Blocker Guidance (Draft pending pharmacist review)"
+  },
+  {
+    "id": "food_paracetamol_1",
+    "generic": "paracetamol",
+    "type": "keepSteady",
+    "iconKey": "water_glass",
+    "title": {
+      "ur": "پانی کے پورے گلاس کے ساتھ لیں؛ پیراسیٹامول والی دوسری دوا ساتھ نہ لیں",
+      "en": "Take with water; do not combine with other paracetamol products"
+    },
+    "body": {
+      "ur": "کھانے کے ساتھ یا بغیر لی جا سکتی ہے۔ نزلے یا درد کی دوسری دوا میں پیراسیٹامول ہو تو دونوں اکٹھی نہ لیں۔",
+      "en": "Can be taken with or without food. Check other pain or cold medicines to avoid taking duplicate paracetamol."
+    },
+    "reviewed": false,
+    "source": "BNF Paracetamol Safety Guidance (Draft pending pharmacist review)"
+  }
+]

@@ -1,0 +1,202 @@
+[
+  {
+    "generic": "amoxicillin + clavulanic acid",
+    "common": {
+      "ur": "ہلکی متلی، نرم پاخانہ یا پیٹ میں ہلکی بے چینی۔",
+      "en": "Mild nausea, loose stools, or mild stomach discomfort."
+    },
+    "callDoctorIf": [
+      {
+        "ur": "جسم پر شدید خارش، سرخ دانے، یا چہرے/ہونٹوں پر سوجن ہو۔",
+        "en": "Severe skin rash, hives, or swelling of the face, lips, or tongue."
+      },
+      {
+        "ur": "سانس لینے میں دشواری ہو یا شدید دست بند نہ ہوں۔",
+        "en": "Difficulty breathing or severe watery diarrhea that does not stop."
+      }
+    ],
+    "reviewed": false,
+    "source": "BNF / GSK Prescribing Info (Draft pending pharmacist review)"
+  },
+  {
+    "generic": "paracetamol",
+    "common": {
+      "ur": "معمول کی خوراک میں سائیڈ ایفیکٹس بہت کم ہوتے ہیں۔",
+      "en": "Side effects are rare when taken at the recommended dose."
+    },
+    "callDoctorIf": [
+      {
+        "ur": "جلد پر دانے، خارش، یا آنکھوں اور جلد کا رنگ پیلا پڑنا۔",
+        "en": "Skin rash, itching, or yellowing of the eyes or skin."
+      },
+      {
+        "ur": "اگر غلطی سے تجویز کردہ مقدار سے زیادہ گولیاں کھا لی جائیں۔",
+        "en": "If more than the prescribed number of tablets are taken."
+      }
+    ],
+    "reviewed": false,
+    "source": "BNF Paracetamol Monograph (Draft pending pharmacist review)"
+  },
+  {
+    "generic": "omeprazole",
+    "common": {
+      "ur": "ہلکا سر درد، پیٹ میں گیس یا ہلکی متلی۔",
+      "en": "Mild headache, stomach gas, or mild nausea."
+    },
+    "callDoctorIf": [
+      {
+        "ur": "نگلنے میں تکلیف، سیاہ پاخانہ، یا مسلسل پیٹ درد۔",
+        "en": "Difficulty swallowing, black stools, or persistent abdominal pain."
+      }
+    ],
+    "reviewed": false,
+    "source": "BNF Omeprazole Monograph (Draft pending pharmacist review)"
+  },
+  {
+    "generic": "metformin",
+    "common": {
+      "ur": "شروع کے دنوں میں متلی، پیٹ میں گیس یا منہ کا ذائقہ بدلنا۔",
+      "en": "Mild nausea, stomach gas, or metallic taste during the first few days."
+    },
+    "callDoctorIf": [
+      {
+        "ur": "تیز سانس پھولنا، شدید کمزوری، چکر آنا یا غیر معمولی ٹھنڈ لگنا۔",
+        "en": "Fast or shallow breathing, extreme weakness, dizziness, or feeling unusually cold."
+      }
+    ],
+    "reviewed": false,
+    "source": "ADA / BNF Metformin Monograph (Draft pending pharmacist review)"
+  },
+  {
+    "generic": "amlodipine",
+    "common": {
+      "ur": "ٹخنوں یا پاؤں پر ہلکی سوجن، سر درد یا ہلکی تھکن۔",
+      "en": "Mild swelling of ankles or feet, headache, or mild tiredness."
+    },
+    "callDoctorIf": [
+      {
+        "ur": "سینے میں درد، دل کی دھڑکن بہت تیز ہونا یا بے ہوشی جیسی کیفیت۔",
+        "en": "Chest pain, very fast heartbeat, or feeling faint."
+      }
+    ],
+    "reviewed": false,
+    "source": "BNF Amlodipine Monograph (Draft pending pharmacist review)"
+  },
+  {
+    "generic": "atorvastatin",
+    "common": {
+      "ur": "ہلکا پٹھوں کا کھنچاؤ، جوڑوں میں ہلکا درد یا بدہضمی۔",
+      "en": "Mild muscle ache, mild joint discomfort, or indigestion."
+    },
+    "callDoctorIf": [
+      {
+        "ur": "پٹھوں میں شدید غیر معمولی درد، کمزوری، یا پیشاب کا رنگ گہرا بھورا ہونا۔",
+        "en": "Severe unexplained muscle pain, weakness, or dark brown urine."
+      }
+    ],
+    "reviewed": false,
+    "source": "BNF Atorvastatin Monograph (Draft pending pharmacist review)"
+  },
+  {
+    "generic": "ciprofloxacin",
+    "common": {
+      "ur": "متلی، ہلکا سر درد یا پیٹ میں ہلکی بے چینی۔",
+      "en": "Mild nausea, slight headache, or mild stomach upset."
+    },
+    "callDoctorIf": [
+      {
+        "ur": "ایڑی یا جوڑوں کے پٹھوں (Tendon) میں اچانک درد یا سوجن۔",
+        "en": "Sudden pain, swelling, or tenderness in the heel or joints (tendon pain)."
+      },
+      {
+        "ur": "ہاتھ پاؤں میں سنسناہٹ یا الرجی کی علامات۔",
+        "en": "Tingling/numbness in hands or feet, or signs of an allergic reaction."
+      }
+    ],
+    "reviewed": false,
+    "source": "FDA / BNF Ciprofloxacin Monograph (Draft pending pharmacist review)"
+  },
+  {
+    "generic": "ferrous sulfate",
+    "common": {
+      "ur": "پاخانے کا رنگ گہرا یا کالا ہونا (یہ عام اور بے ضرر ہے)، قبض یا ہلکی متلی۔",
+      "en": "Dark or black stools (harmless and expected), mild constipation, or mild nausea."
+    },
+    "callDoctorIf": [
+      {
+        "ur": "پیٹ میں شدید مروڑ، قے میں خون، یا نگلتے وقت سینے میں جلن۔",
+        "en": "Severe stomach cramps, vomiting blood, or chest pain when swallowing."
+      }
+    ],
+    "reviewed": false,
+    "source": "WHO / BNF Ferrous Sulfate Monograph (Draft pending pharmacist review)"
+  },
+  {
+    "generic": "ibuprofen",
+    "common": {
+      "ur": "معدے میں ہلکی جلن، تیزابیت یا ہلکی متلی۔",
+      "en": "Mild indigestion, heartburn, or mild nausea."
+    },
+    "callDoctorIf": [
+      {
+        "ur": "پاخانے کا رنگ کالا ہونا، قے میں خون، یا پیٹ میں شدید درد۔",
+        "en": "Black tarry stools, vomiting blood, or severe stomach pain."
+      },
+      {
+        "ur": "سانس پھولنا یا چہرے پر سوجن۔",
+        "en": "Shortness of breath, wheezing, or facial swelling."
+      }
+    ],
+    "reviewed": false,
+    "source": "BNF Ibuprofen Monograph (Draft pending pharmacist review)"
+  },
+  {
+    "generic": "metronidazole",
+    "common": {
+      "ur": "منہ کا ذائقہ کڑوا/دھاتی ہونا، ہلکی متلی یا بھوک میں کمی۔",
+      "en": "Metallic taste in the mouth, mild nausea, or reduced appetite."
+    },
+    "callDoctorIf": [
+      {
+        "ur": "ہاتھ پاؤں کا سن ہونا، چکر آنا یا جسم پر شدید دانے۔",
+        "en": "Numbness or tingling in hands/feet, severe dizziness, or skin rash."
+      }
+    ],
+    "reviewed": false,
+    "source": "BNF Metronidazole Monograph (Draft pending pharmacist review)"
+  },
+  {
+    "generic": "levothyroxine",
+    "common": {
+      "ur": "درست خوراک پر عام طور پر کوئی سائیڈ ایفیکٹ نہیں ہوتا۔",
+      "en": "Usually no side effects when at the right dose."
+    },
+    "callDoctorIf": [
+      {
+        "ur": "دل کی دھڑکن تیز ہونا، ہاتھ کانپنا، سینے میں درد یا زیادہ پسینہ آنا۔",
+        "en": "Fast or pounding heartbeat, shaky hands, chest pain, or excessive sweating."
+      }
+    ],
+    "reviewed": false,
+    "source": "BNF Levothyroxine Monograph (Draft pending pharmacist review)"
+  },
+  {
+    "generic": "warfarin",
+    "common": {
+      "ur": "ہلکی خراش یا مسوڑھوں سے معمولی خون آنا۔",
+      "en": "Easy bruising or minor bleeding from gums when brushing."
+    },
+    "callDoctorIf": [
+      {
+        "ur": "ناک سے خون بند نہ ہونا، پیشاب میں سرخی، یا پاخانہ کالا ہونا۔",
+        "en": "Nosebleed that does not stop, pink/red urine, or black stools."
+      },
+      {
+        "ur": "سر میں چوٹ لگنا یا شدید سر درد اور چکر آنا۔",
+        "en": "Any head injury, severe headache, or sudden dizziness."
+      }
+    ],
+    "reviewed": false,
+    "source": "NHS / BNF Warfarin Safety Alert (Draft pending pharmacist review)"
+  }
+]

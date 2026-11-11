@@ -1,0 +1,380 @@
+[
+  {
+    "brand": "Augmentin",
+    "aliases": ["augmentin", "augmentin duo", "co-amoxiclav", "amoxiclav", "calamox"],
+    "generic": "amoxicillin + clavulanic acid",
+    "drugClass": "penicillin_antibiotic",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "DRAP Essential Medicines List / GSK Pakistan Prescribing Info (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Amoxil",
+    "aliases": ["amoxil", "amoxicillin", "amoxycillin", "oxim"],
+    "generic": "amoxicillin",
+    "drugClass": "penicillin_antibiotic",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "WHO / DRAP Formulary Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Panadol",
+    "aliases": ["panadol", "panadol advance", "paracetamol", "acetaminophen"],
+    "generic": "paracetamol",
+    "drugClass": "analgesic_antipyretic",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Haleon Pakistan Package Insert (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Calpol",
+    "aliases": ["calpol", "calpol 500", "calpol six plus"],
+    "generic": "paracetamol",
+    "drugClass": "analgesic_antipyretic",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "GSK Pakistan Package Insert (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Disprol",
+    "aliases": ["disprol", "febrol", "provas"],
+    "generic": "paracetamol",
+    "drugClass": "analgesic_antipyretic",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Reckitt / Barret Hodgson Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Brufen",
+    "aliases": ["brufen", "brufen ds", "ibuprofen", "advil"],
+    "generic": "ibuprofen",
+    "drugClass": "nsaid",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Abbott Pakistan Prescribing Info (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Ponstan",
+    "aliases": ["ponstan", "ponstan forte", "mefenamic acid"],
+    "generic": "mefenamic acid",
+    "drugClass": "nsaid",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Pfizer Pakistan Package Insert (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Voren",
+    "aliases": ["voren", "dicloran", "voltral", "diclofenac"],
+    "generic": "diclofenac",
+    "drugClass": "nsaid",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Novartis / Sami Pharma Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Synflex",
+    "aliases": ["synflex", "naproxen", "apranax", "proxen"],
+    "generic": "naproxen",
+    "drugClass": "nsaid",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Martin Dow Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Risek",
+    "aliases": ["risek", "risek insta", "omeprazole", "omega", "losec"],
+    "generic": "omeprazole",
+    "drugClass": "ppi",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Getz Pharma Pakistan Prescribing Info (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Nexum",
+    "aliases": ["nexum", "nexium", "esomeprazole", "esokem"],
+    "generic": "esomeprazole",
+    "drugClass": "ppi",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Getz Pharma / AstraZeneca Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Ruling",
+    "aliases": ["ruling", "lansoprazole", "zoton"],
+    "generic": "lansoprazole",
+    "drugClass": "ppi",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Highnoon Labs Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Zopent",
+    "aliases": ["zopent", "pantoprazole", "protium"],
+    "generic": "pantoprazole",
+    "drugClass": "ppi",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Hilton Pharma Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Glucophage",
+    "aliases": ["glucophage", "glucophage xr", "metformin", "neodipar"],
+    "generic": "metformin",
+    "drugClass": "biguanide",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Martin Dow / Sanofi Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Amaryl",
+    "aliases": ["amaryl", "getryl", "glimepiride", "evopride"],
+    "generic": "glimepiride",
+    "drugClass": "sulfonylurea",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Sanofi / Getz Pharma Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Diamicron",
+    "aliases": ["diamicron", "diamicron mr", "gliclazide"],
+    "generic": "gliclazide",
+    "drugClass": "sulfonylurea",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Servier Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Trevia",
+    "aliases": ["trevia", "januvia", "sitagliptin"],
+    "generic": "sitagliptin",
+    "drugClass": "dpp4_inhibitor",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Getz Pharma / MSD Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Norvasc",
+    "aliases": ["norvasc", "sofvasc", "amlocard", "amlodipine", "lodopin"],
+    "generic": "amlodipine",
+    "drugClass": "calcium_channel_blocker",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Pfizer / Wilson's Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Concor",
+    "aliases": ["concor", "bisoprolol", "corbis"],
+    "generic": "bisoprolol",
+    "drugClass": "beta_blocker",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Merck / Martin Dow Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Tenormin",
+    "aliases": ["tenormin", "atenolol", "blokium"],
+    "generic": "atenolol",
+    "drugClass": "beta_blocker",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "OBS / ICI Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Inderal",
+    "aliases": ["inderal", "propranolol"],
+    "generic": "propranolol",
+    "drugClass": "beta_blocker",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "ICI Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Cozaar",
+    "aliases": ["cozaar", "eziday", "losartan", "bepsar"],
+    "generic": "losartan",
+    "drugClass": "arb",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Werrick / OBS Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Diovan",
+    "aliases": ["diovan", "valtec", "valsartan"],
+    "generic": "valsartan",
+    "drugClass": "arb",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Novartis / Tabros Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Capoten",
+    "aliases": ["capoten", "captopril"],
+    "generic": "captopril",
+    "drugClass": "ace_inhibitor",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "GSK / BMS Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Zestril",
+    "aliases": ["zestril", "lisinopril"],
+    "generic": "lisinopril",
+    "drugClass": "ace_inhibitor",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "ICI Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Lipitor",
+    "aliases": ["lipitor", "atorva", "atorvastatin", "descol", "lipiget"],
+    "generic": "atorvastatin",
+    "drugClass": "statin",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Pfizer / Getz Pharma Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Rovista",
+    "aliases": ["rovista", "crestor", "x-plended", "rosuvastatin"],
+    "generic": "rosuvastatin",
+    "drugClass": "statin",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Getz / PharmEvo Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Cipro",
+    "aliases": ["cipro", "ciproxin", "novidat", "ciprofloxacin", "ercipro"],
+    "generic": "ciprofloxacin",
+    "drugClass": "fluoroquinolone",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Bayer / Sami Pharma Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Leflox",
+    "aliases": ["leflox", "cravit", "levofloxacin"],
+    "generic": "levofloxacin",
+    "drugClass": "fluoroquinolone",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Getz / Hilton Pharma Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Avelox",
+    "aliases": ["avelox", "moxiget", "moxifloxacin"],
+    "generic": "moxifloxacin",
+    "drugClass": "fluoroquinolone",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Bayer / Getz Pharma Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Flagyl",
+    "aliases": ["flagyl", "metronidazole", "entamizole-m"],
+    "generic": "metronidazole",
+    "drugClass": "nitroimidazole_antibiotic",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Sanofi Pakistan Prescribing Info (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Azomax",
+    "aliases": ["azomax", "zithromax", "azithromycin", "azee", "zetro"],
+    "generic": "azithromycin",
+    "drugClass": "macrolide_antibiotic",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Sami / Pfizer / Getz Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Klaricid",
+    "aliases": ["klaricid", "clarithromycin", "claritek"],
+    "generic": "clarithromycin",
+    "drugClass": "macrolide_antibiotic",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Abbott / Getz Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Vibramycin",
+    "aliases": ["vibramycin", "doxycycline", "doxyn"],
+    "generic": "doxycycline",
+    "drugClass": "tetracycline_antibiotic",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Pfizer Pakistan Prescribing Info (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Cefspan",
+    "aliases": ["cefspan", "cefixime", "cefiget", "caricef"],
+    "generic": "cefixime",
+    "drugClass": "cephalosporin_antibiotic",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Barrett Hodgson / Getz Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Ferrous sulfate",
+    "aliases": ["ferrous sulfate", "ferrous sulphate", "fefol", "iberet", "iron tablet"],
+    "generic": "ferrous sulfate",
+    "drugClass": "iron_supplement",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "WHO / DRAP Formulary Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Thyronorm",
+    "aliases": ["thyronorm", "eltroxin", "levothyroxine", "thyroxine"],
+    "generic": "levothyroxine",
+    "drugClass": "thyroid_hormone",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Abbott / GSK Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Marevan",
+    "aliases": ["marevan", "warfarin", "coumadin"],
+    "generic": "warfarin",
+    "drugClass": "anticoagulant",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "WHO / BNF Anticoagulant Guidance (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Loprin",
+    "aliases": ["loprin", "disprin", "ascacard", "aspirin"],
+    "generic": "aspirin",
+    "drugClass": "antiplatelet",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Highnoon / Atco Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Rigix",
+    "aliases": ["rigix", "zyrtec", "cetirizine"],
+    "generic": "cetirizine",
+    "drugClass": "antihistamine",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "AGP / GSK Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Softin",
+    "aliases": ["softin", "claritin", "loratadine"],
+    "generic": "loratadine",
+    "drugClass": "antihistamine",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Werrick Pakistan Reference (Draft pending pharmacist review)"
+  },
+  {
+    "brand": "Motilium",
+    "aliases": ["motilium", "domel", "domperidone"],
+    "generic": "domperidone",
+    "drugClass": "prokinetic",
+    "ambiguous": false,
+    "reviewed": false,
+    "source": "Johnson & Johnson / Barrett Hodgson Reference (Draft pending pharmacist review)"
+  }
+]

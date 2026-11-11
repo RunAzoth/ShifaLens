@@ -78,7 +78,7 @@ final mealTimesProvider = NotifierProvider<MealTimesNotifier, MealTimes>(
   MealTimesNotifier.new,
 );
 
-/// Service factory hooks so Real implementations can be registered cleanly.
+/// Service factory hooks so Real implementations can be customized or overridden cleanly.
 typedef ServiceBuilder<T> = T Function(Ref ref);
 
 ServiceBuilder<PrescriptionReader>? realPrescriptionReaderBuilder;
@@ -97,8 +97,11 @@ final geminiClientProvider = Provider<GeminiClient>((ref) {
 
 final knowledgeServiceProvider = Provider<KnowledgeService>((ref) {
   final cfg = ref.watch(appConfigProvider);
-  if (!cfg.mockKnowledge && realKnowledgeServiceBuilder != null) {
-    return realKnowledgeServiceBuilder!(ref);
+  if (!cfg.mockKnowledge) {
+    if (realKnowledgeServiceBuilder != null) {
+      return realKnowledgeServiceBuilder!(ref);
+    }
+    return RealKnowledgeService();
   }
   return MockKnowledgeService();
 });
@@ -135,8 +138,11 @@ final stripMatcherProvider = Provider<StripMatcher>((ref) {
 
 final scheduleEngineProvider = Provider<ScheduleEngine>((ref) {
   final cfg = ref.watch(appConfigProvider);
-  if (!cfg.mockKnowledge && realScheduleEngineBuilder != null) {
-    return realScheduleEngineBuilder!(ref);
+  if (!cfg.mockKnowledge) {
+    if (realScheduleEngineBuilder != null) {
+      return realScheduleEngineBuilder!(ref);
+    }
+    return RealScheduleEngine(knowledge: ref.watch(knowledgeServiceProvider));
   }
   return MockScheduleEngine(knowledge: ref.watch(knowledgeServiceProvider));
 });
@@ -165,24 +171,33 @@ final qaServiceProvider = Provider<QAService>((ref) {
 
 final planRepositoryProvider = Provider<PlanRepository>((ref) {
   final cfg = ref.watch(appConfigProvider);
-  if (!cfg.mockRepo && realPlanRepositoryBuilder != null) {
-    return realPlanRepositoryBuilder!(ref);
+  if (!cfg.mockRepo) {
+    if (realPlanRepositoryBuilder != null) {
+      return realPlanRepositoryBuilder!(ref);
+    }
+    return RealPlanRepository();
   }
   return MockPlanRepository();
 });
 
 final reminderServiceProvider = Provider<ReminderService>((ref) {
   final cfg = ref.watch(appConfigProvider);
-  if (!cfg.mockReminders && realReminderServiceBuilder != null) {
-    return realReminderServiceBuilder!(ref);
+  if (!cfg.mockReminders) {
+    if (realReminderServiceBuilder != null) {
+      return realReminderServiceBuilder!(ref);
+    }
+    return RealReminderService();
   }
   return MockReminderService();
 });
 
 final shareServiceProvider = Provider<ShareService>((ref) {
   final cfg = ref.watch(appConfigProvider);
-  if (!cfg.mockShare && realShareServiceBuilder != null) {
-    return realShareServiceBuilder!(ref);
+  if (!cfg.mockShare) {
+    if (realShareServiceBuilder != null) {
+      return realShareServiceBuilder!(ref);
+    }
+    return RealShareService();
   }
   return MockShareService();
 });

@@ -1,12 +1,39 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app/config.dart';
 import 'app/providers.dart';
 import 'core/models/models.dart';
+import 'core/strings_disclosure.dart';
+import 'firebase_options.dart';
+import 'services/real/real_reminder_service.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase + Anonymous Auth on startup (Rule 6 & Part 2 Task 4)
+  try {
+    if (DefaultFirebaseOptions.isConfigured) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+    } else {
+      await Firebase.initializeApp();
+    }
+    if (FirebaseAuth.instance.currentUser == null) {
+      await FirebaseAuth.instance.signInAnonymously();
+    }
+  } catch (_) {
+    // Runs offline/in demo mode even if Firebase credentials are not supplied
+  }
+
+  // Reschedule saved local dose notifications after device reboot / app start
+  try {
+    await RealReminderService().rescheduleSavedPlanIfPresent();
+  } catch (_) {}
+
   runApp(const ProviderScope(child: ShifaLensApp()));
 }
 
@@ -44,11 +71,7 @@ class _BootstrapHomeScreen extends ConsumerWidget {
     final lang = ref.watch(langProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          lang == Lang.ur
-              ? 'شفا لینز (ShifaLens)'
-              : 'ShifaLens — Pharmacist Companion',
-        ),
+        title: Text(ShifaLensDisclosureStrings.appTitle.forLang(lang)),
         actions: [
           TextButton(
             onPressed: () => ref.read(langProvider.notifier).toggle(),
@@ -62,9 +85,9 @@ class _BootstrapHomeScreen extends ConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                'ہر مریض کے لیے فارماسسٹ کی وضاحت، اردو میں، تصویروں کے ساتھ۔\n'
-                'A pharmacist\'s explanation for every patient, in Urdu, with pictures.',
+              Text(
+                '${ShifaLensDisclosureStrings.tagline.ur}\n'
+                '${ShifaLensDisclosureStrings.tagline.en}',
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
@@ -73,9 +96,13 @@ class _BootstrapHomeScreen extends ConsumerWidget {
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 8),
-              const Text(
-                'Prototype. Not a medical device. / پروٹوٹائپ۔ یہ طبی آلہ نہیں ہے۔',
-                style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+              Text(
+                ShifaLensDisclosureStrings.prototypeBanner.ur,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontStyle: FontStyle.italic,
+                ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),

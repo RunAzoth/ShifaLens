@@ -1,0 +1,33 @@
+{
+  "id": "main",
+  "title": {
+    "ur": "متوازن پاکستانی کھانے کی پلیٹ (روٹی، دال، سبزی اور سلاد)",
+    "en": "Balanced Pakistani Plate Guide (Roti, Daal, Sabzi & Salad)"
+  },
+  "reviewed": false,
+  "source": "Qualitative Pakistani Balanced Plate Education — AI/Programmatically Generated Illustration (Pending pharmacist/nutritionist review; not a diet prescription)",
+  "aiGeneratedIllustration": true,
+  "imageBase64": "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",
+  "tips": [
+    {
+      "ur": "شوگر کی دواؤں کے ساتھ کھانے کے اوقات باقاعدہ رکھیں اور روٹی یا چاول کو دن بھر کے کھانوں میں متوازن تقسیم کریں۔",
+      "en": "With diabetes medicines, keep meal times steady and spread carbohydrates (roti or rice) evenly across your meals."
+    },
+    {
+      "ur": "آدھی پلیٹ تازہ کچی سلاد (کھیرا، ٹماٹر، مولی) اور کم تیل میں پکی موسمی سبزیوں (پالک، توری، لوکی، بھنڈی) کے لیے رکھیں۔",
+      "en": "Fill half the plate with fresh salad (cucumber, tomato, radish) and lightly cooked seasonal sabzi (spinach, gourd, okra)."
+    },
+    {
+      "ur": "پلیٹ کا ایک چوتھائی حصہ دال، چنے، لوبیا، انڈے، مچھلی یا مرغی کے لیے رکھیں۔",
+      "en": "Keep one quarter of the plate for protein such as daal, chickpeas, beans, egg, fish, or lean chicken."
+    },
+    {
+      "ur": "باقی چوتھائی حصے میں چکی کے آٹے کی روٹی یا سادہ چاول شامل کریں۔",
+      "en": "Reserve the remaining quarter of the plate for whole-wheat chakki roti or plain rice."
+    },
+    {
+      "ur": "دوا ہمیشہ سادہ پانی کے ساتھ لیں؛ چائے، دودھ یا مشروبات کے ساتھ دوا لینے سے پہلے فارماسسٹ کی ہدایات دیکھیں۔",
+      "en": "Always swallow medicines with plain water; check your medicine food cards before taking pills with chai, milk, or juices."
+    }
+  ]
+}

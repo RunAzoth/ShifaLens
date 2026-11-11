@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users read/write ONLY their own anonymized plans, ticks, and FCM token docs.
+    match /users/{uid}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Curated clinical knowledge tables are read-only for all clients.
+    match /brands_generics/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /food_med/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /side_effects/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /plate_guide/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

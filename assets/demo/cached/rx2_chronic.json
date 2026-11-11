@@ -1,0 +1,70 @@
+{
+  "id": "rx_demo_2",
+  "createdAt": "2026-11-11T08:05:00.000Z",
+  "synthetic": true,
+  "lines": [
+    {
+      "id": "rx2_line_1",
+      "rawText": "Tab. Glucophage 500 mg 1+0+1 with meals x 30 days",
+      "brandName": "Glucophage",
+      "genericName": "metformin",
+      "strength": "500 mg",
+      "form": "Tablet",
+      "frequencyRaw": "1+0+1",
+      "timingNote": "with meals",
+      "durationDays": 30,
+      "fieldConfidence": {
+        "name": 0.96,
+        "strength": 0.95,
+        "frequency": 0.97,
+        "duration": 0.95
+      },
+      "needsPharmacist": false,
+      "confirmed": true,
+      "isManual": false,
+      "identityIndex": 0
+    },
+    {
+      "id": "rx2_line_2",
+      "rawText": "Tab. Norvasc 5 mg 1+0+0 x 30 days",
+      "brandName": "Norvasc",
+      "genericName": "amlodipine",
+      "strength": "5 mg",
+      "form": "Tablet",
+      "frequencyRaw": "1+0+0",
+      "timingNote": "morning",
+      "durationDays": 30,
+      "fieldConfidence": {
+        "name": 0.95,
+        "strength": 0.94,
+        "frequency": 0.96,
+        "duration": 0.95
+      },
+      "needsPharmacist": false,
+      "confirmed": true,
+      "isManual": false,
+      "identityIndex": 1
+    },
+    {
+      "id": "rx2_line_3",
+      "rawText": "Tab. Lipitor 20 mg at bedtime x 30 days",
+      "brandName": "Lipitor",
+      "genericName": "atorvastatin",
+      "strength": "20 mg",
+      "form": "Tablet",
+      "frequencyRaw": "HS",
+      "timingNote": "at bedtime",
+      "durationDays": 30,
+      "fieldConfidence": {
+        "name": 0.94,
+        "strength": 0.93,
+        "frequency": 0.92,
+        "duration": 0.95
+      },
+      "needsPharmacist": false,
+      "confirmed": true,
+      "isManual": false,
+      "identityIndex": 2
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "id": "rx_demo_3",
+  "createdAt": "2026-11-11T08:10:00.000Z",
+  "synthetic": true,
+  "lines": [
+    {
+      "id": "rx3_line_1",
+      "rawText": "Tab. Cipro 500 mg 1+0+1 x 7 days",
+      "brandName": "Cipro",
+      "genericName": "ciprofloxacin",
+      "strength": "500 mg",
+      "form": "Tablet",
+      "frequencyRaw": "1+0+1",
+      "timingNote": "separate from dairy and iron",
+      "durationDays": 7,
+      "fieldConfidence": {
+        "name": 0.95,
+        "strength": 0.95,
+        "frequency": 0.96,
+        "duration": 0.93
+      },
+      "needsPharmacist": false,
+      "confirmed": true,
+      "isManual": false,
+      "identityIndex": 0
+    },
+    {
+      "id": "rx3_line_2",
+      "rawText": "Tab. Ferrous sulfate 200 mg 1+0+0 x 30 days",
+      "brandName": "Ferrous sulfate",
+      "genericName": "ferrous sulfate",
+      "strength": "200 mg",
+      "form": "Tablet",
+      "frequencyRaw": "1+0+0",
+      "timingNote": "empty stomach or after lunch",
+      "durationDays": 30,
+      "fieldConfidence": {
+        "name": 0.92,
+        "strength": 0.93,
+        "frequency": 0.95,
+        "duration": 0.94
+      },
+      "needsPharmacist": false,
+      "confirmed": true,
+      "isManual": false,
+      "identityIndex": 1
+    },
+    {
+      "id": "rx3_line_3",
+      "rawText": "Tab. Panadol 500 mg 1+1+1",
+      "brandName": "Panadol",
+      "genericName": "paracetamol",
+      "strength": "500 mg",
+      "form": "Tablet",
+      "frequencyRaw": "1+1+1",
+      "timingNote": "after meals",
+      "durationDays": 5,
+      "fieldConfidence": {
+        "name": 0.97,
+        "strength": 0.96,
+        "frequency": 0.96,
+        "duration": 0.85
+      },
+      "needsPharmacist": false,
+      "confirmed": true,
+      "isManual": false,
+      "identityIndex": 2
+    },
+    {
+      "id": "rx3_line_4",
+      "rawText": "Tab. Calpol 500 mg 1+1+1",
+      "brandName": "Calpol",
+      "genericName": "paracetamol",
+      "strength": "500 mg",
+      "form": "Tablet",
+      "frequencyRaw": "1+1+1",
+      "timingNote": "after meals",
+      "durationDays": 5,
+      "fieldConfidence": {
+        "name": 0.94,
+        "strength": 0.95,
+        "frequency": 0.96,
+        "duration": 0.85
+      },
+      "needsPharmacist": false,
+      "confirmed": true,
+      "isManual": false,
+      "identityIndex": 3
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "id": "rx_demo_1",
+  "createdAt": "2026-11-11T08:00:00.000Z",
+  "synthetic": true,
+  "lines": [
+    {
+      "id": "rx1_line_1",
+      "rawText": "Tab. Augmentin 625 mg 1+0+1 x 5 days",
+      "brandName": "Augmentin",
+      "genericName": "amoxicillin + clavulanic acid",
+      "strength": "625 mg",
+      "form": "Tablet",
+      "frequencyRaw": "1+0+1",
+      "timingNote": "after meals",
+      "durationDays": 5,
+      "fieldConfidence": {
+        "name": 0.96,
+        "strength": 0.95,
+        "frequency": 0.97,
+        "duration": 0.94
+      },
+      "needsPharmacist": false,
+      "confirmed": true,
+      "isManual": false,
+      "identityIndex": 0
+    },
+    {
+      "id": "rx1_line_2",
+      "rawText": "Tab. Panadol 500 mg 1+1+1 x 3 days",
+      "brandName": "Panadol",
+      "genericName": "paracetamol",
+      "strength": "500 mg",
+      "form": "Tablet",
+      "frequencyRaw": "1+1+1",
+      "timingNote": "after meals",
+      "durationDays": 3,
+      "fieldConfidence": {
+        "name": 0.98,
+        "strength": 0.96,
+        "frequency": 0.97,
+        "duration": 0.95
+      },
+      "needsPharmacist": false,
+      "confirmed": true,
+      "isManual": false,
+      "identityIndex": 1
+    },
+    {
+      "id": "rx1_line_3",
+      "rawText": "Cap. Risek 20 mg 1+0+0 before breakfast x 14 days",
+      "brandName": "Risek",
+      "genericName": "omeprazole",
+      "strength": "20 mg",
+      "form": "Capsule",
+      "frequencyRaw": "1+0+0",
+      "timingNote": "before breakfast",
+      "durationDays": 14,
+      "fieldConfidence": {
+        "name": 0.94,
+        "strength": 0.93,
+        "frequency": 0.96,
+        "duration": 0.92
+      },
+      "needsPharmacist": false,
+      "confirmed": true,
+      "isManual": false,
+      "identityIndex": 2
+    },
+    {
+      "id": "rx1_line_4",
+      "rawText": "Tab. ????? 1+0+1",
+      "brandName": null,
+      "genericName": null,
+      "strength": null,
+      "form": "Tablet",
+      "frequencyRaw": "1+0+1",
+      "timingNote": null,
+      "durationDays": null,
+      "fieldConfidence": {
+        "name": 0.18,
+        "strength": 0.12,
+        "frequency": 0.85,
+        "duration": 0.10
+      },
+      "needsPharmacist": true,
+      "confirmed": false,
+      "isManual": false,
+      "identityIndex": 3
+    }
+  ]
+}

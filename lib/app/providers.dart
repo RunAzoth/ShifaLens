@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/models/models.dart';
 import '../core/services/services.dart';
 import '../services/mock/mock_services.dart';
+import '../services/real/real_services.dart';
 import 'config.dart';
 
 class AppConfigNotifier extends Notifier<AppConfig> {
@@ -90,6 +91,10 @@ ServiceBuilder<PlanRepository>? realPlanRepositoryBuilder;
 ServiceBuilder<ReminderService>? realReminderServiceBuilder;
 ServiceBuilder<ShareService>? realShareServiceBuilder;
 
+final geminiClientProvider = Provider<GeminiClient>((ref) {
+  return GeminiClient();
+});
+
 final knowledgeServiceProvider = Provider<KnowledgeService>((ref) {
   final cfg = ref.watch(appConfigProvider);
   if (!cfg.mockKnowledge && realKnowledgeServiceBuilder != null) {
@@ -101,16 +106,29 @@ final knowledgeServiceProvider = Provider<KnowledgeService>((ref) {
 final prescriptionReaderProvider = Provider<PrescriptionReader>((ref) {
   final cfg = ref.watch(appConfigProvider);
   final demoIdx = ref.watch(activeDemoRxIndexProvider);
-  if (!cfg.mockReader && realPrescriptionReaderBuilder != null) {
-    return realPrescriptionReaderBuilder!(ref);
+  if (!cfg.mockReader) {
+    if (realPrescriptionReaderBuilder != null) {
+      return realPrescriptionReaderBuilder!(ref);
+    }
+    return RealPrescriptionReader(
+      client: ref.watch(geminiClientProvider),
+      knowledge: ref.watch(knowledgeServiceProvider),
+      fallbackDemoIndex: demoIdx,
+    );
   }
   return MockPrescriptionReader(demoIndex: demoIdx);
 });
 
 final stripMatcherProvider = Provider<StripMatcher>((ref) {
   final cfg = ref.watch(appConfigProvider);
-  if (!cfg.mockStrips && realStripMatcherBuilder != null) {
-    return realStripMatcherBuilder!(ref);
+  if (!cfg.mockStrips) {
+    if (realStripMatcherBuilder != null) {
+      return realStripMatcherBuilder!(ref);
+    }
+    return RealStripMatcher(
+      client: ref.watch(geminiClientProvider),
+      knowledge: ref.watch(knowledgeServiceProvider),
+    );
   }
   return MockStripMatcher();
 });
@@ -120,21 +138,27 @@ final scheduleEngineProvider = Provider<ScheduleEngine>((ref) {
   if (!cfg.mockKnowledge && realScheduleEngineBuilder != null) {
     return realScheduleEngineBuilder!(ref);
   }
-  return MockScheduleEngine();
+  return MockScheduleEngine(knowledge: ref.watch(knowledgeServiceProvider));
 });
 
 final voiceServiceProvider = Provider<VoiceService>((ref) {
   final cfg = ref.watch(appConfigProvider);
-  if (!cfg.mockVoice && realVoiceServiceBuilder != null) {
-    return realVoiceServiceBuilder!(ref);
+  if (!cfg.mockVoice) {
+    if (realVoiceServiceBuilder != null) {
+      return realVoiceServiceBuilder!(ref);
+    }
+    return RealVoiceService();
   }
   return MockVoiceService();
 });
 
 final qaServiceProvider = Provider<QAService>((ref) {
   final cfg = ref.watch(appConfigProvider);
-  if (!cfg.mockQA && realQAServiceBuilder != null) {
-    return realQAServiceBuilder!(ref);
+  if (!cfg.mockQA) {
+    if (realQAServiceBuilder != null) {
+      return realQAServiceBuilder!(ref);
+    }
+    return RealQAService(client: ref.watch(geminiClientProvider));
   }
   return MockQAService();
 });

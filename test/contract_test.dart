@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,6 +10,18 @@ import 'package:nuskha_saathi/services/mock/mock_services.dart';
 import 'package:nuskha_saathi/services/real/real_services.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() {
+    final wav = MockVoiceService.buildMinimalWavBytes();
+    for (final name in ['plan_rx1.wav', 'plan_rx2.wav', 'plan_rx3.wav']) {
+      final f = File('assets/demo/cached/$name');
+      if (!f.existsSync()) {
+        f.writeAsBytesSync(wav);
+      }
+    }
+  });
+
   group('Contract v1 & Models', () {
     test('AppConfig defaults all mock flags to true and flips cleanly', () {
       const config = AppConfig();

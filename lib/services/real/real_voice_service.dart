@@ -14,8 +14,9 @@ import '../../core/services/voice_service.dart';
 import '../mock/mock_voice_service.dart';
 
 class RealVoiceService implements VoiceService {
-  final FlutterTts _tts;
-  final AudioPlayer _audioPlayer;
+  FlutterTts? _ttsInstance;
+  AudioPlayer? _audioPlayerInstance;
+  bool _handlersInitialized = false;
   final http.Client _httpClient;
   final StreamController<bool> _speakingController =
       StreamController<bool>.broadcast();
@@ -27,22 +28,39 @@ class RealVoiceService implements VoiceService {
     FlutterTts? tts,
     AudioPlayer? audioPlayer,
     http.Client? httpClient,
-  })  : _tts = tts ?? FlutterTts(),
-        _audioPlayer = audioPlayer ?? AudioPlayer(),
-        _httpClient = httpClient ?? http.Client() {
-    _initHandlers();
+  })  : _ttsInstance = tts,
+        _audioPlayerInstance = audioPlayer,
+        _httpClient = httpClient ?? http.Client();
+
+  FlutterTts get _tts {
+    final instance = _ttsInstance ??= FlutterTts();
+    _ensureHandlers();
+    return instance;
   }
 
-  void _initHandlers() {
-    try {
-      _tts.setStartHandler(() => _speakingController.add(true));
-      _tts.setCompletionHandler(() => _speakingController.add(false));
-      _tts.setCancelHandler(() => _speakingController.add(false));
-      _tts.setErrorHandler((_) => _speakingController.add(false));
+  AudioPlayer get _audioPlayer {
+    final instance = _audioPlayerInstance ??= AudioPlayer();
+    _ensureHandlers();
+    return instance;
+  }
 
-      _audioPlayer.onPlayerStateChanged.listen((state) {
-        _speakingController.add(state == PlayerState.playing);
-      });
+  void _ensureHandlers() {
+    if (_handlersInitialized) return;
+    _handlersInitialized = true;
+    try {
+      final tts = _ttsInstance;
+      if (tts != null) {
+        tts.setStartHandler(() => _speakingController.add(true));
+        tts.setCompletionHandler(() => _speakingController.add(false));
+        tts.setCancelHandler(() => _speakingController.add(false));
+        tts.setErrorHandler((_) => _speakingController.add(false));
+      }
+      final player = _audioPlayerInstance;
+      if (player != null) {
+        player.onPlayerStateChanged.listen((state) {
+          _speakingController.add(state == PlayerState.playing);
+        });
+      }
     } catch (_) {
       // Safe in unit-test environments without platform channels
     }
@@ -102,10 +120,10 @@ class RealVoiceService implements VoiceService {
   @override
   Future<void> stop() async {
     try {
-      await _tts.stop();
+      if (_ttsInstance != null) await _tts.stop();
     } catch (_) {}
     try {
-      await _audioPlayer.stop();
+      if (_audioPlayerInstance != null) await _audioPlayer.stop();
     } catch (_) {}
     _speakingController.add(false);
   }

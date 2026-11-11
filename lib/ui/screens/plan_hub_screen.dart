@@ -218,7 +218,7 @@ class _PlanHubScreenState extends ConsumerState<PlanHubScreen> {
                           ),
                           Switch.adaptive(
                             value: journey.ramadanMode,
-                            activeColor: AppTokens.eveningIndigo,
+                            activeThumbColor: AppTokens.eveningIndigo,
                             onChanged: (val) {
                               ref
                                   .read(journeyControllerProvider.notifier)

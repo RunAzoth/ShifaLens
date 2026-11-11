@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../app/config.dart';
+import '../../app/providers.dart';
 import '../../core/models/models.dart';
 import '../theme/app_tokens.dart';
 import '../theme/language_controller.dart';
@@ -51,6 +52,7 @@ class HomeScreen extends ConsumerWidget {
         return Consumer(
           builder: (context, ref, _) {
             final offline = ref.watch(simulatedOfflineProvider);
+            final cfg = ref.watch(appConfigProvider);
             return SafeArea(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(AppTokens.space3),
@@ -116,7 +118,7 @@ class HomeScreen extends ConsumerWidget {
                     SwitchListTile.adaptive(
                       contentPadding: EdgeInsets.zero,
                       value: offline,
-                      activeColor: AppTokens.primaryTeal,
+                      activeThumbColor: AppTokens.primaryTeal,
                       title: const Text(
                         'Simulate Offline Mode • آف لائن موڈ',
                         style: TextStyle(
@@ -132,6 +134,86 @@ class HomeScreen extends ConsumerWidget {
                             .read(simulatedOfflineProvider.notifier)
                             .setOffline(val);
                       },
+                    ),
+                    const Divider(),
+                    const BiText(
+                      Bilingual(
+                        ur: 'سروسز موڈ (Mock بمقابلہ Real Gemini/Firebase):',
+                        en: 'Service Flags (Mock vs Real AI & Backend):',
+                      ),
+                      urduWeight: FontWeight.w700,
+                      englishWeight: FontWeight.w700,
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: () {
+                              ref
+                                  .read(appConfigProvider.notifier)
+                                  .setConfig(const AppConfig.allMock());
+                            },
+                            child: const Text('All Mock (Safe Demo)'),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: () {
+                              ref
+                                  .read(appConfigProvider.notifier)
+                                  .setConfig(const AppConfig.allReal());
+                            },
+                            child: const Text('All Real (Gemini Live)'),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SwitchListTile.adaptive(
+                      contentPadding: EdgeInsets.zero,
+                      dense: true,
+                      value: !cfg.mockReader,
+                      title: const Text('Real Gemini PrescriptionReader'),
+                      onChanged: (real) => ref
+                          .read(appConfigProvider.notifier)
+                          .update((c) => c.copyWith(mockReader: !real)),
+                    ),
+                    SwitchListTile.adaptive(
+                      contentPadding: EdgeInsets.zero,
+                      dense: true,
+                      value: !cfg.mockKnowledge,
+                      title: const Text('Real Curated Knowledge & ScheduleEngine'),
+                      onChanged: (real) => ref
+                          .read(appConfigProvider.notifier)
+                          .update((c) => c.copyWith(mockKnowledge: !real)),
+                    ),
+                    SwitchListTile.adaptive(
+                      contentPadding: EdgeInsets.zero,
+                      dense: true,
+                      value: !cfg.mockQA,
+                      title: const Text('Real Gemini Grounded QAService'),
+                      onChanged: (real) => ref
+                          .read(appConfigProvider.notifier)
+                          .update((c) => c.copyWith(mockQA: !real)),
+                    ),
+                    SwitchListTile.adaptive(
+                      contentPadding: EdgeInsets.zero,
+                      dense: true,
+                      value: !cfg.mockStrips,
+                      title: const Text('Real Gemini StripMatcher'),
+                      onChanged: (real) => ref
+                          .read(appConfigProvider.notifier)
+                          .update((c) => c.copyWith(mockStrips: !real)),
+                    ),
+                    SwitchListTile.adaptive(
+                      contentPadding: EdgeInsets.zero,
+                      dense: true,
+                      value: !cfg.mockVoice,
+                      title: const Text('Real Urdu TTS VoiceService'),
+                      onChanged: (real) => ref
+                          .read(appConfigProvider.notifier)
+                          .update((c) => c.copyWith(mockVoice: !real)),
                     ),
                     const SizedBox(height: 12),
                     OutlinedButton.icon(

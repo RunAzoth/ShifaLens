@@ -6,7 +6,6 @@ import 'package:shifalens/ui/screens/journey_controller.dart';
 import 'package:shifalens/ui/screens/plan_hub_screen.dart';
 import 'package:shifalens/ui/screens/review_confirm_screen.dart';
 import 'package:shifalens/ui/theme/app_theme.dart';
-import 'package:shifalens/ui/theme/language_controller.dart';
 import 'package:shifalens/ui/widgets/widgets.dart';
 
 Prescription _buildFlaggedRx1() {
@@ -126,6 +125,13 @@ void main() {
     testWidgets(
       '1. Review screen renders flagged state, AiTag, and 3 one-tap actions with no overflow at 1.6x textScale',
       (WidgetTester tester) async {
+        tester.view.physicalSize = const Size(412, 915);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(() {
+          tester.view.resetPhysicalSize();
+          tester.view.resetDevicePixelRatio();
+        });
+
         final container = ProviderContainer();
         addTearDown(container.dispose);
 
@@ -136,16 +142,18 @@ void main() {
         await tester.pumpWidget(
           UncontrolledProviderScope(
             container: container,
-            child: MediaQuery(
-              data: const MediaQueryData(
-                size: Size(412, 915),
-                textScaler: TextScaler.linear(1.6),
-                disableAnimations: true,
-              ),
-              child: MaterialApp(
-                theme: AppTheme.lightTheme,
-                home: const ReviewConfirmScreen(),
-              ),
+            child: MaterialApp(
+              theme: AppTheme.lightTheme,
+              builder: (context, child) {
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(
+                    textScaler: const TextScaler.linear(1.6),
+                    disableAnimations: true,
+                  ),
+                  child: child!,
+                );
+              },
+              home: const ReviewConfirmScreen(),
             ),
           ),
         );
@@ -282,6 +290,13 @@ void main() {
     testWidgets(
       '4. PlanHubScreen renders 4 bottom tabs, Today timeline, sticky voice bar, unscheduled section, and ReviewBadge',
       (WidgetTester tester) async {
+        tester.view.physicalSize = const Size(412, 915);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(() {
+          tester.view.resetPhysicalSize();
+          tester.view.resetDevicePixelRatio();
+        });
+
         final container = ProviderContainer();
         addTearDown(container.dispose);
 
@@ -292,15 +307,17 @@ void main() {
         await tester.pumpWidget(
           UncontrolledProviderScope(
             container: container,
-            child: MediaQuery(
-              data: const MediaQueryData(
-                size: Size(412, 915),
-                disableAnimations: true,
-              ),
-              child: MaterialApp(
-                theme: AppTheme.lightTheme,
-                home: const PlanHubScreen(),
-              ),
+            child: MaterialApp(
+              theme: AppTheme.lightTheme,
+              builder: (context, child) {
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(
+                    disableAnimations: true,
+                  ),
+                  child: child!,
+                );
+              },
+              home: const PlanHubScreen(),
             ),
           ),
         );

@@ -14,6 +14,7 @@ import '../app/config.dart';
 import '../app/providers.dart';
 import '../core/models/models.dart';
 import '../firebase_options.dart';
+import '../ui/theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,12 +58,9 @@ class ShifaLensAiLabApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ShifaLens AI Lab (Person A)',
+      title: 'ShifaLens AI Lab',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0D7377)),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.lightTheme,
       home: const AiLabScreen(),
     );
   }

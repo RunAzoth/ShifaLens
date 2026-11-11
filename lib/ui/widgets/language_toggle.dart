@@ -6,7 +6,8 @@ import '../theme/app_tokens.dart';
 import '../theme/language_controller.dart';
 
 /// Accessible pill toggle for switching between Urdu / English / Both (default Both).
-/// Minimum 56dp height for effortless tapping.
+/// When [compact] is true (inside a 56dp AppBar), uses a single-line scaleDown layout
+/// so it never overflows horizontally or vertically even at 1.6x textScale.
 class LanguageToggle extends ConsumerWidget {
   final bool compact;
 
@@ -18,6 +19,66 @@ class LanguageToggle extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activeMode = ref.watch(languageModeProvider);
+
+    if (compact) {
+      return Semantics(
+        container: true,
+        label: 'Language display mode: ${activeMode.labelEn}',
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 132, maxHeight: 40),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Container(
+            padding: const EdgeInsets.all(3),
+            decoration: BoxDecoration(
+              color: AppTokens.surfaceWarm,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: AppTokens.borderWarm),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: LanguageMode.values.map((mode) {
+                final selected = mode == activeMode;
+                return Semantics(
+                  button: true,
+                  selected: selected,
+                  label: 'Switch language to ${mode.labelEn}',
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(11),
+                    onTap: () {
+                      HapticFeedback.selectionClick();
+                      ref.read(languageModeProvider.notifier).setMode(mode);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: selected
+                            ? AppTokens.primaryTeal
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(11),
+                      ),
+                      child: Text(
+                        mode.labelEn,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight:
+                              selected ? FontWeight.w800 : FontWeight.w600,
+                          color: selected ? Colors.white : AppTokens.ink,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+      ),
+    );
+    }
 
     return Semantics(
       container: true,
@@ -47,16 +108,17 @@ class LanguageToggle extends ConsumerWidget {
                 },
                 child: AnimatedContainer(
                   duration: AppTokens.motionFast,
-                  constraints: BoxConstraints(
-                    minHeight: compact ? 48 : AppTokens.minTapTarget - 8,
-                    minWidth: compact ? 68 : 88,
+                  constraints: const BoxConstraints(
+                    minHeight: AppTokens.minTapTarget - 8,
+                    minWidth: 88,
                   ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: compact ? 10 : 14,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: selected ? AppTokens.primaryTeal : Colors.transparent,
+                    color:
+                        selected ? AppTokens.primaryTeal : Colors.transparent,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Column(

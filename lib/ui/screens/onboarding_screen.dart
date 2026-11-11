@@ -300,8 +300,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 const SizedBox(height: AppTokens.space2),
                 // Mandatory interactive consent box
                 Semantics(
-                  checkbox: true,
                   checked: _consentChecked,
+                  toggled: _consentChecked,
                   label: '${consentStatement.ur}. ${consentStatement.en}',
                   child: Material(
                     color: _consentChecked

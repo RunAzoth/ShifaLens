@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -133,7 +132,11 @@ class ReviewConfirmScreen extends ConsumerWidget {
       child: Scaffold(
         backgroundColor: AppTokens.surfaceCream,
         appBar: AppBar(
-          title: const Text('Review & Confirm • جائزہ اور تصدیق'),
+          title: const FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: AlignmentDirectional.centerStart,
+            child: Text('Review & Confirm • جائزہ اور تصدیق'),
+          ),
           actions: [
             IconButton(
               tooltip: 'Add Medicine Manually',
@@ -141,7 +144,7 @@ class ReviewConfirmScreen extends ConsumerWidget {
               onPressed: () => ManualEntrySheet.show(context),
             ),
             const Padding(
-              padding: EdgeInsets.only(right: 12, left: 4),
+              padding: EdgeInsets.only(right: 8, left: 4),
               child: LanguageToggle(compact: true),
             ),
           ],
@@ -154,9 +157,9 @@ class ReviewConfirmScreen extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(
                   AppTokens.space2,
-                  8,
+                  6,
                   AppTokens.space2,
-                  8,
+                  6,
                 ),
                 child: _PinnedZoomablePrescriptionHeader(
                   imageBytes: journey.capturedImageBytes,
@@ -190,12 +193,12 @@ class ReviewConfirmScreen extends ConsumerWidget {
                     : ListView(
                         padding: const EdgeInsets.symmetric(
                           horizontal: AppTokens.space2,
-                          vertical: 8,
+                          vertical: 6,
                         ),
                         children: [
                           const OfflineBanner(),
-                          const AiTag(),
-                          const SizedBox(height: 12),
+                          const AiTag(compact: true),
+                          const SizedBox(height: 10),
 
                           // Unresolved flagged items callout
                           if (unresolvedCount > 0) ...[
@@ -267,13 +270,13 @@ class ReviewConfirmScreen extends ConsumerWidget {
                       ),
               ),
 
-              // Bottom Pinned Confirm Bar
+              // Bottom Pinned Confirm Bar (compact & overflow-safe at 1.6x textScale)
               Container(
                 padding: const EdgeInsets.fromLTRB(
                   AppTokens.space2,
-                  12,
+                  8,
                   AppTokens.space2,
-                  12,
+                  8,
                 ),
                 decoration: BoxDecoration(
                   color: AppTokens.cardCream,
@@ -282,38 +285,16 @@ class ReviewConfirmScreen extends ConsumerWidget {
                   ),
                   boxShadow: AppTokens.cardShadow,
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    if (!canConfirm && lines.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: BiText(
-                          Bilingual(
-                            ur: 'پہلے اوپر دی گئی $unresolvedCount مشکوک دوا کا فیصلہ کریں',
-                            en: 'Resolve $unresolvedCount flagged item(s) above to unlock Confirm',
-                          ),
-                          urduSize: 22,
-                          englishSize: 16,
-                          urduColor: AppTokens.warningAmberDark,
-                          englishColor: AppTokens.warningAmberDark,
-                          textAlign: TextAlign.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                        ),
-                      ),
-                    BigActionButton(
-                      key: const Key('review_confirm_button'),
-                      icon: Icons.verified_rounded,
-                      label: Bilingual(
-                        ur: 'تصدیق کریں اور میرا شیڈول بنائیں ($totalCount دوائیں)',
-                        en: 'Confirm and make my plan ($totalCount medicines)',
-                      ),
-                      onPressed: canConfirm
-                          ? () => _onConfirmPressed(context, ref)
-                          : null,
-                    ),
-                  ],
+                child: BigActionButton(
+                  key: const Key('review_confirm_button'),
+                  icon: Icons.verified_rounded,
+                  label: Bilingual(
+                    ur: 'تصدیق کریں اور میرا شیڈول بنائیں ($totalCount دوائیں)',
+                    en: 'Confirm and make my plan ($totalCount medicines)',
+                  ),
+                  onPressed: canConfirm
+                      ? () => _onConfirmPressed(context, ref)
+                      : null,
                 ),
               ),
             ],
@@ -347,7 +328,7 @@ class _PinnedZoomablePrescriptionHeader extends StatelessWidget {
       label:
           'Pinned prescription photo thumbnail. Pinch or double-tap to zoom in and compare handwriting.',
       child: Container(
-        height: 118,
+        height: 84,
         decoration: BoxDecoration(
           color: AppTokens.ink,
           borderRadius: BorderRadius.circular(20),
@@ -424,50 +405,53 @@ class _SyntheticPaperPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xFFFDFBF7),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Row(
-            children: [
-              Icon(
-                Icons.receipt_long_rounded,
-                size: 18,
-                color: AppTokens.primaryTealDark,
-              ),
-              SizedBox(width: 6),
-              Expanded(
-                child: Text(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+      alignment: AlignmentDirectional.centerStart,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: AlignmentDirectional.centerStart,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.receipt_long_rounded,
+                  size: 16,
+                  color: AppTokens.primaryTealDark,
+                ),
+                SizedBox(width: 6),
+                Text(
                   'Rx Prescription Scan (Synthetic Demo)',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
                     color: AppTokens.primaryTealDark,
                   ),
-                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+            const SizedBox(height: 2),
+            for (final line in lines.take(2))
+              Text(
+                '• ${line.rawText}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  fontWeight: line.needsPharmacist
+                      ? FontWeight.w700
+                      : FontWeight.w500,
+                  color: line.needsPharmacist
+                      ? AppTokens.warningAmberDark
+                      : AppTokens.ink,
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          for (final line in lines.take(3))
-            Text(
-              '• ${line.rawText}',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 13,
-                fontWeight: line.needsPharmacist
-                    ? FontWeight.w700
-                    : FontWeight.w500,
-                color: line.needsPharmacist
-                    ? AppTokens.warningAmberDark
-                    : AppTokens.ink,
-              ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }

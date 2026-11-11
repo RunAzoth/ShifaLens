@@ -193,12 +193,29 @@ class _TodayTabState extends ConsumerState<TodayTab> {
             padding: const EdgeInsets.all(AppTokens.space2),
             children: [
               const OfflineBanner(),
-              const AiTag(),
-              const SizedBox(height: 10),
+              const AiTag(compact: true),
+              const SizedBox(height: 8),
               if (hasUnreviewed) ...[
                 const Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: ReviewBadge(reviewed: false),
+                ),
+                const SizedBox(height: 10),
+              ],
+
+              // Top of the screen: DuplicateAlert banner (coral, big icon, plain language) if any
+              for (final dup in plan.duplicates) ...[
+                SafetyBanner.fromDuplicate(
+                  dup,
+                  key: Key('today_duplicate_${dup.id}'),
+                ),
+                const SizedBox(height: 12),
+              ],
+
+              // Top of the screen: "Not scheduled: ask your pharmacist" section for unscheduled lines (never hidden)
+              if (plan.unscheduled.isNotEmpty) ...[
+                _UnscheduledPharmacistSection(
+                  unscheduled: plan.unscheduled,
                 ),
                 const SizedBox(height: 12),
               ],
@@ -221,24 +238,7 @@ class _TodayTabState extends ConsumerState<TodayTab> {
                       );
                 },
               ),
-              const SizedBox(height: 12),
-
-              // DuplicateAlert Banner (coral, big icon, plain language)
-              for (final dup in plan.duplicates) ...[
-                SafetyBanner.fromDuplicate(
-                  dup,
-                  key: Key('today_duplicate_${dup.id}'),
-                ),
-                const SizedBox(height: 12),
-              ],
-
-              // Non-Negotiable Rule #2: Separate "Not scheduled: ask your pharmacist" section (never hidden)
-              if (plan.unscheduled.isNotEmpty) ...[
-                _UnscheduledPharmacistSection(
-                  unscheduled: plan.unscheduled,
-                ),
-                const SizedBox(height: 16),
-              ],
+              const SizedBox(height: 14),
 
               // Vertical "Day Arc" Container (sunrise saffron -> midday teal -> night indigo gradient)
               Container(
@@ -501,7 +501,7 @@ class _RamadanHeaderCard extends StatelessWidget {
                 child: Switch.adaptive(
                   key: const Key('ramadan_mode_switch'),
                   value: ramadan,
-                  activeColor: AppTokens.eveningIndigo,
+                  activeThumbColor: AppTokens.eveningIndigo,
                   onChanged: onToggleRamadan,
                 ),
               ),

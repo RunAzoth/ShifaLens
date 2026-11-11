@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -212,8 +211,8 @@ class _AskTabState extends ConsumerState<AskTab> {
             padding: const EdgeInsets.all(AppTokens.space2),
             children: [
               const OfflineBanner(),
-              const AiTag(),
-              const SizedBox(height: 12),
+              const AiTag(compact: true),
+              const SizedBox(height: 8),
               const BiText(
                 Bilingual(
                   ur: 'اپنی دوائیوں کے بارے میں آسان اردو میں پوچھیں',
@@ -222,14 +221,7 @@ class _AskTabState extends ConsumerState<AskTab> {
                 isHeadline: true,
                 urduColor: AppTokens.primaryTealDark,
               ),
-              const SizedBox(height: 6),
-              const BiText(
-                Bilingual(
-                  ur: 'تصویری بٹن دبائیں، لکھ کر پوچھیں، یا مائیک دبا کر بولیں۔',
-                  en: 'Tap a picture question below, type a question, or hold the microphone to speak.',
-                ),
-              ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 10),
 
               // Picture Suggestion Chips
               Wrap(

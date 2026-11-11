@@ -122,7 +122,7 @@ ${jsonEncode(medListJson)}
 
       final rawMatches = response['matches'] as List<dynamic>? ?? const [];
       if (rawMatches.isEmpty) {
-        return MockStripMatcher.loadCachedStripMatches(meds);
+        return await MockStripMatcher.loadCachedStripMatches(meds);
       }
 
       final results = <StripMatch>[];

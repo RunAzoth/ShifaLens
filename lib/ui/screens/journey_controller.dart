@@ -53,12 +53,13 @@ enum DemoPrescriptionId {
   });
 
   /// Creates valid synthetic JPEG header + marker payload for `PrescriptionReader.read`
+  /// Starts with RX1 / RX2 / RX3 so MockPrescriptionReader.read(jpeg) matches bytes 0..2 directly!
   Uint8List toSyntheticJpegBytes() {
-    final marker = utf8.encode('SHIFALENS_DEMO:$code');
+    final prefix = utf8.encode(code);
+    final marker = utf8.encode(':SHIFALENS_DEMO:$code');
     return Uint8List.fromList(<int>[
-      0xFF, 0xD8, 0xFF, 0xE0, // JPEG SOI + APP0 marker
+      ...prefix,
       ...marker,
-      0xFF, 0xD9, // JPEG EOI
     ]);
   }
 }
@@ -223,7 +224,7 @@ class JourneyController extends Notifier<JourneyState> {
       await knowledge.load();
       final repo = ref.read(planRepositoryProvider);
       final savedPlan = await repo.loadLatest();
-      if (savedPlan != null) {
+      if (savedPlan != null && state.latestPlan == null) {
         state = state.copyWith(
           latestPlan: savedPlan,
           ramadanMode: savedPlan.ramadan,

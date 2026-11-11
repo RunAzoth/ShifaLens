@@ -112,7 +112,9 @@ If a line has unreadable characters (like "Tab. ????? 1+0+1"), include the rawTe
 
       final rawLines = response['lines'] as List<dynamic>? ?? const [];
       if (rawLines.isEmpty) {
-        return MockPrescriptionReader.loadCachedPrescription(fallbackDemoIndex);
+        return await MockPrescriptionReader.loadCachedPrescription(
+          fallbackDemoIndex,
+        );
       }
 
       final parsedLines = <MedicineLine>[];

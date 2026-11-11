@@ -62,9 +62,16 @@ class GeminiClient {
   final int maxRetries;
   final http.Client _httpClient;
 
-  static const String _dartDefineApiKey = String.fromEnvironment(
-    'GEMINI_API_KEY',
-  );
+  static String? runtimeApiKey;
+
+  static String get effectiveApiKey {
+    const fromEnv = String.fromEnvironment('GEMINI_API_KEY');
+    if (fromEnv.isNotEmpty) return fromEnv;
+    if (runtimeApiKey != null && runtimeApiKey!.isNotEmpty) {
+      return runtimeApiKey!;
+    }
+    return '';
+  }
 
   GeminiClient({
     this.modelName = kGeminiModel,
@@ -164,9 +171,10 @@ class GeminiClient {
     required double temperature,
     required List<({String mimeType, Uint8List bytes})> mediaParts,
   }) async {
-    if (_dartDefineApiKey.isNotEmpty) {
+    final apiKey = effectiveApiKey;
+    if (apiKey.isNotEmpty) {
       return _invokeRestFallback(
-        apiKey: _dartDefineApiKey,
+        apiKey: apiKey,
         systemInstruction: systemInstruction,
         promptText: promptText,
         responseSchema: responseSchema,

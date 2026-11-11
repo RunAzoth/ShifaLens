@@ -22,9 +22,9 @@ class AppConfig {
   final bool mockShare;
 
   const AppConfig({
-    this.mockReader = true,
-    this.mockStrips = true,
-    this.mockQA = true,
+    this.mockReader = false,
+    this.mockStrips = false,
+    this.mockQA = false,
     this.mockVoice = true,
     this.mockKnowledge = true,
     this.mockRepo = true,

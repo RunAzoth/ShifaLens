@@ -129,7 +129,9 @@ If a line has unreadable characters (like "Tab. ????? 1+0+1"), include the rawTe
         createdAt: DateTime.now(),
         synthetic: true,
       );
-    } catch (_) {
+    } catch (e) {
+      // ignore: avoid_print
+      print('RealPrescriptionReader Gemini error: $e');
       // Graceful fallback to cached prescription on any AI/network failure
       return MockPrescriptionReader.loadCachedPrescription(fallbackDemoIndex);
     }

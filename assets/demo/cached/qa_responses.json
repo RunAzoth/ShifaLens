@@ -1,0 +1,23 @@
+{
+  "grounded": {
+    "answer": {
+      "ur": "آگمینٹن (Augmentin) کو کھانے کے ساتھ یا کھانے کے فوراً بعد لیں تاکہ پیٹ خراب نہ ہو۔ رائزک (Risek) ناشتے سے 30 منٹ پہلے خالی پیٹ لیں۔ کسی بھی شدید علامت کی صورت میں ڈاکٹر سے رابطہ کریں۔",
+      "en": "Take Augmentin with or right after a meal to reduce stomach upset. Take Risek 30 minutes before breakfast on an empty stomach. Contact your doctor if severe symptoms occur."
+    },
+    "grounded": true,
+    "escalateToPharmacist": false,
+    "sources": [
+      "food_amox_clav_1",
+      "food_omeprazole_1"
+    ]
+  },
+  "escalate": {
+    "answer": {
+      "ur": "یہ سوال دوا کی خوراک تبدیل کرنے یا روکنے سے متعلق ہے جو محفوظ معلومات میں شامل نہیں۔ براہِ کرم اپنے فارماسسٹ یا ڈاکٹر سے مشورہ کریں۔",
+      "en": "This question involves changing or stopping a dose, which requires professional guidance. Please ask your pharmacist or doctor."
+    },
+    "grounded": false,
+    "escalateToPharmacist": true,
+    "sources": []
+  }
+}

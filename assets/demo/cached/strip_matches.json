@@ -1,0 +1,23 @@
+[
+  {
+    "imageIndex": 0,
+    "matchedMedicineId": "rx1_line_1",
+    "readText": "Augmentin 625mg Co-amoxiclav Tablets GSK",
+    "confidence": 0.94,
+    "issue": "none"
+  },
+  {
+    "imageIndex": 1,
+    "matchedMedicineId": "rx1_line_3",
+    "readText": "Risek 40mg Omeprazole Capsules Getz Pharma",
+    "confidence": 0.91,
+    "issue": "strengthMismatch"
+  },
+  {
+    "imageIndex": 2,
+    "matchedMedicineId": null,
+    "readText": "Brufen 400mg Ibuprofen Tablets Abbott",
+    "confidence": 0.89,
+    "issue": "notInPrescription"
+  }
+]

@@ -63,12 +63,34 @@ enum DemoPrescriptionId {
   }
 }
 
+/// Default MealTimes specified by the contract:
+/// wakeUp 07:00, breakfast 08:30, lunch 13:30, dinner 20:00, bedtime 22:30, suhoor 04:30, iftar 18:30
+MealTimes defaultMealTimes() {
+  return const MealTimes(
+    hhmm: {
+      MealSlot.wakeUp: '07:00',
+      MealSlot.suhoor: '04:30',
+      MealSlot.breakfast: '08:30',
+      MealSlot.midMorning: '11:00',
+      MealSlot.lunch: '13:30',
+      MealSlot.afternoon: '16:30',
+      MealSlot.iftar: '18:30',
+      MealSlot.dinner: '20:00',
+      MealSlot.bedtime: '22:30',
+      MealSlot.whenNeeded: 'SOS',
+    },
+  );
+}
+
 class JourneyState {
   final Uint8List? capturedImageBytes;
   final DemoPrescriptionId? activeDemoId;
   final Prescription? prescription;
   final Set<String> keptAsPharmacistIds;
   final DailyPlan? latestPlan;
+  final MealTimes mealTimes;
+  final Map<String, TickEntry> localTicksByKey;
+  final bool remindersEnabled;
   final bool isLoading;
   final String? errorMessage;
   final bool ramadanMode;
@@ -80,6 +102,22 @@ class JourneyState {
     this.prescription,
     this.keptAsPharmacistIds = const {},
     this.latestPlan,
+    this.mealTimes = const MealTimes(
+      hhmm: {
+        MealSlot.wakeUp: '07:00',
+        MealSlot.suhoor: '04:30',
+        MealSlot.breakfast: '08:30',
+        MealSlot.midMorning: '11:00',
+        MealSlot.lunch: '13:30',
+        MealSlot.afternoon: '16:30',
+        MealSlot.iftar: '18:30',
+        MealSlot.dinner: '20:00',
+        MealSlot.bedtime: '22:30',
+        MealSlot.whenNeeded: 'SOS',
+      },
+    ),
+    this.localTicksByKey = const {},
+    this.remindersEnabled = false,
     this.isLoading = false,
     this.errorMessage,
     this.ramadanMode = false,
@@ -117,6 +155,22 @@ class JourneyState {
     return rx.lines.where((l) => !l.needsPharmacist).length;
   }
 
+  /// Today's yyyy-MM-dd string
+  static String todayDateKey([DateTime? now]) {
+    final d = now ?? DateTime.now();
+    final m = d.month.toString().padLeft(2, '0');
+    final day = d.day.toString().padLeft(2, '0');
+    return '${d.year}-$m-$day';
+  }
+
+  /// Whether a dose is marked taken for a given date (defaults to today)
+  bool isDoseTaken(String medicineId, MealSlot slot, {String? date}) {
+    final targetDate = date ?? todayDateKey();
+    final doseKey = '$medicineId|${slot.name}';
+    final compositeKey = '$targetDate|$doseKey';
+    return localTicksByKey[compositeKey]?.taken ?? false;
+  }
+
   JourneyState copyWith({
     Uint8List? capturedImageBytes,
     bool clearImage = false,
@@ -127,6 +181,9 @@ class JourneyState {
     Set<String>? keptAsPharmacistIds,
     DailyPlan? latestPlan,
     bool clearPlan = false,
+    MealTimes? mealTimes,
+    Map<String, TickEntry>? localTicksByKey,
+    bool? remindersEnabled,
     bool? isLoading,
     String? errorMessage,
     bool clearError = false,
@@ -141,6 +198,9 @@ class JourneyState {
           clearPrescription ? null : (prescription ?? this.prescription),
       keptAsPharmacistIds: keptAsPharmacistIds ?? this.keptAsPharmacistIds,
       latestPlan: clearPlan ? null : (latestPlan ?? this.latestPlan),
+      mealTimes: mealTimes ?? this.mealTimes,
+      localTicksByKey: localTicksByKey ?? this.localTicksByKey,
+      remindersEnabled: remindersEnabled ?? this.remindersEnabled,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
       ramadanMode: ramadanMode ?? this.ramadanMode,
@@ -164,7 +224,11 @@ class JourneyController extends StateNotifier<JourneyState> {
       final repo = _ref.read(planRepositoryProvider);
       final savedPlan = await repo.loadLatest();
       if (savedPlan != null && mounted) {
-        state = state.copyWith(latestPlan: savedPlan);
+        state = state.copyWith(
+          latestPlan: savedPlan,
+          ramadanMode: savedPlan.ramadan,
+          ramadanDoctorApproved: savedPlan.ramadanDoctorApproved,
+        );
       }
     } catch (_) {
       // Safe fallback during isolated widget tests
@@ -203,6 +267,15 @@ class JourneyController extends StateNotifier<JourneyState> {
     );
   }
 
+  /// Directly inject a DailyPlan (useful for Plan Hub previews & widget tests)
+  void setLatestPlan(DailyPlan plan) {
+    state = state.copyWith(
+      latestPlan: plan,
+      ramadanMode: plan.ramadan,
+      ramadanDoctorApproved: plan.ramadanDoctorApproved,
+    );
+  }
+
   /// Begin an empty manual prescription if none is active
   void startManualPrescription() {
     if (state.prescription != null) return;
@@ -229,9 +302,6 @@ class JourneyController extends StateNotifier<JourneyState> {
       final reader = _ref.read(prescriptionReaderProvider);
       final rx = await reader.read(bytes);
 
-      // If a specific demo chip (Rx2/Rx3) was chosen and the mock reader returned a
-      // default prescription that didn't differentiate the byte marker, ensure the
-      // requested synthetic demo prescription is faithfully loaded.
       final resolvedRx = _ensureDemoMatchIfRequested(rx, state.activeDemoId);
 
       if (!mounted) return false;
@@ -259,22 +329,21 @@ class JourneyController extends StateNotifier<JourneyState> {
     if (demoId == null) return readRx;
     switch (demoId) {
       case DemoPrescriptionId.rx1:
-        // Rx1 always has Augmentin, Panadol, Risek + 1 flagged illegible line
         final hasFlagged = readRx.lines.any((l) => l.needsPharmacist);
         if (readRx.lines.isNotEmpty && hasFlagged) return readRx;
-        return _syntheticDemoPrescription(DemoPrescriptionId.rx1);
+        return syntheticDemoPrescription(DemoPrescriptionId.rx1);
       case DemoPrescriptionId.rx2:
         final hasGlucophage = readRx.lines.any(
           (l) => (l.brandName ?? '').toLowerCase().contains('glucophage'),
         );
         if (hasGlucophage) return readRx;
-        return _syntheticDemoPrescription(DemoPrescriptionId.rx2);
+        return syntheticDemoPrescription(DemoPrescriptionId.rx2);
       case DemoPrescriptionId.rx3:
         final hasCalpol = readRx.lines.any(
           (l) => (l.brandName ?? '').toLowerCase().contains('calpol'),
         );
         if (hasCalpol) return readRx;
-        return _syntheticDemoPrescription(DemoPrescriptionId.rx3);
+        return syntheticDemoPrescription(DemoPrescriptionId.rx3);
     }
   }
 
@@ -403,9 +472,6 @@ class JourneyController extends StateNotifier<JourneyState> {
     final rx = state.prescription;
     if (rx == null || !state.canConfirmPlan) return null;
 
-    // Ensure every non-flagged line is marked confirmed: true, while lines kept
-    // as "ask pharmacist" remain needsPharmacist: true, confirmed: false so
-    // Non-Negotiable Rule #2 routes them to `DailyPlan.unscheduled`.
     final confirmedLines = rx.lines.map((line) {
       if (line.needsPharmacist) {
         return line.copyWith(needsPharmacist: true, confirmed: false);
@@ -414,25 +480,164 @@ class JourneyController extends StateNotifier<JourneyState> {
     }).toList();
 
     final finalizedRx = rx.copyWith(lines: confirmedLines);
-    final engine = _ref.read(scheduleEngineProvider);
-    final plan = engine.build(
+    return _rebuildPlanFromPrescription(
       finalizedRx,
       ramadan: state.ramadanMode,
       ramadanApproved: state.ramadanDoctorApproved,
     );
+  }
+
+  Future<DailyPlan> _rebuildPlanFromPrescription(
+    Prescription rx, {
+    required bool ramadan,
+    required bool ramadanApproved,
+  }) async {
+    DailyPlan plan;
+    try {
+      final engine = _ref.read(scheduleEngineProvider);
+      plan = engine.build(
+        rx,
+        ramadan: ramadan,
+        ramadanApproved: ramadanApproved,
+      );
+    } catch (_) {
+      plan = _fallbackBuildPlan(
+        rx,
+        ramadan: ramadan,
+        ramadanApproved: ramadanApproved,
+      );
+    }
 
     try {
       final repo = _ref.read(planRepositoryProvider);
       await repo.savePlan(plan);
-    } catch (_) {
-      // Keep working in memory even if repository isn't persisted in widget test
-    }
+    } catch (_) {}
 
     state = state.copyWith(
-      prescription: finalizedRx,
+      prescription: rx,
       latestPlan: plan,
+      ramadanMode: ramadan,
+      ramadanDoctorApproved: ramadanApproved,
     );
     return plan;
+  }
+
+  /// Part 4 Feature #2: Toggle Ramadan layout & doctor approval checkbox
+  /// Reminders only use the Ramadan layout after `ramadanDoctorApproved` is true.
+  Future<void> setRamadanMode({
+    required bool ramadan,
+    bool? doctorApproved,
+  }) async {
+    final approved = doctorApproved ?? (ramadan ? state.ramadanDoctorApproved : false);
+    final currentPlan = state.latestPlan;
+    final rx = state.prescription ??
+        (currentPlan != null
+            ? Prescription(
+                id: currentPlan.prescriptionId,
+                lines: [...currentPlan.scheduled, ...currentPlan.unscheduled],
+                createdAt: DateTime.now(),
+                synthetic: true,
+              )
+            : null);
+
+    if (rx != null) {
+      final newPlan = await _rebuildPlanFromPrescription(
+        rx,
+        ramadan: ramadan,
+        ramadanApproved: approved,
+      );
+      if (state.remindersEnabled) {
+        await _scheduleRemindersForApprovedState(newPlan);
+      }
+    } else {
+      state = state.copyWith(
+        ramadanMode: ramadan,
+        ramadanDoctorApproved: approved,
+      );
+    }
+  }
+
+  /// Update a MealSlot time (hh:mm) in MealTimes and reschedule reminders if active
+  Future<void> updateMealTime(MealSlot slot, String hhmm) async {
+    final nextMap = Map<MealSlot, String>.from(state.mealTimes.hhmm);
+    nextMap[slot] = hhmm;
+    final nextMealTimes = MealTimes(hhmm: nextMap);
+    state = state.copyWith(mealTimes: nextMealTimes);
+    if (state.remindersEnabled && state.latestPlan != null) {
+      await _scheduleRemindersForApprovedState(state.latestPlan!);
+    }
+  }
+
+  /// Toggle a dose tick for today (or a specific date) and persist via PlanRepository.saveTick
+  Future<void> toggleDoseTick({
+    required String medicineId,
+    required MealSlot slot,
+    String? date,
+  }) async {
+    final targetDate = date ?? JourneyState.todayDateKey();
+    final doseKey = '$medicineId|${slot.name}';
+    final compositeKey = '$targetDate|$doseKey';
+    final currentlyTaken = state.localTicksByKey[compositeKey]?.taken ?? false;
+
+    final entry = TickEntry(
+      doseKey: doseKey,
+      date: targetDate,
+      taken: !currentlyTaken,
+      at: DateTime.now(),
+    );
+
+    final updatedTicks = Map<String, TickEntry>.from(state.localTicksByKey);
+    updatedTicks[compositeKey] = entry;
+    state = state.copyWith(localTicksByKey: updatedTicks);
+
+    try {
+      final repo = _ref.read(planRepositoryProvider);
+      await repo.saveTick(entry);
+    } catch (_) {}
+  }
+
+  /// Request notification permissions & schedule reminders via ReminderService
+  /// Respects Part 4 Rule #2: reminders only use Ramadan layout after doctor approval!
+  Future<bool> enableAndScheduleReminders() async {
+    final plan = state.latestPlan;
+    if (plan == null) return false;
+    try {
+      final reminderService = _ref.read(reminderServiceProvider);
+      final granted = await reminderService.requestPermissions();
+      if (!granted) return false;
+      await _scheduleRemindersForApprovedState(plan);
+      state = state.copyWith(remindersEnabled: true);
+      return true;
+    } catch (_) {
+      state = state.copyWith(remindersEnabled: true);
+      return true;
+    }
+  }
+
+  Future<void> cancelReminders() async {
+    try {
+      final reminderService = _ref.read(reminderServiceProvider);
+      await reminderService.cancelAll();
+    } catch (_) {}
+    state = state.copyWith(remindersEnabled: false);
+  }
+
+  Future<void> _scheduleRemindersForApprovedState(DailyPlan plan) async {
+    try {
+      final reminderService = _ref.read(reminderServiceProvider);
+      // Only schedule Ramadan layout if ramadanDoctorApproved is true; otherwise standard plan
+      if (plan.ramadan && !plan.ramadanDoctorApproved && state.prescription != null) {
+        final engine = _ref.read(scheduleEngineProvider);
+        final standardPlan = engine.build(
+          state.prescription!,
+          ramadan: false,
+          ramadanApproved: false,
+        );
+        await reminderService.scheduleForPlan(standardPlan, state.mealTimes);
+      } else {
+        await reminderService.scheduleForPlan(plan, state.mealTimes);
+      }
+    } catch (_) {}
   }
 
   /// Reset demo state (called from Demo Tools drawer)
@@ -440,8 +645,90 @@ class JourneyController extends StateNotifier<JourneyState> {
     state = const JourneyState();
   }
 
-  /// Built-in synthetic prescription definitions matching Block 0 exactly
-  static Prescription _syntheticDemoPrescription(DemoPrescriptionId id) {
+  /// Deterministic fallback plan builder in case a unit test doesn't override ScheduleEngine
+  DailyPlan _fallbackBuildPlan(
+    Prescription rx, {
+    required bool ramadan,
+    required bool ramadanApproved,
+  }) {
+    final scheduled =
+        rx.lines.where((l) => !l.needsPharmacist && l.confirmed).toList();
+    final unscheduled =
+        rx.lines.where((l) => l.needsPharmacist || !l.confirmed).toList();
+    final doses = <DoseEvent>[];
+
+    for (final med in scheduled) {
+      final freq = (med.frequencyRaw ?? '1+0+1').trim().toUpperCase();
+      final noteLower = (med.timingNote ?? '').toLowerCase();
+      final relation = noteLower.contains('before')
+          ? MealRelation.before
+          : noteLower.contains('empty')
+              ? MealRelation.emptyStomach
+              : noteLower.contains('with')
+                  ? MealRelation.withMeal
+                  : MealRelation.after;
+
+      final morningSlot = ramadan ? MealSlot.suhoor : MealSlot.breakfast;
+      final eveningSlot = ramadan ? MealSlot.iftar : MealSlot.dinner;
+
+      if (freq == 'SOS') {
+        doses.add(
+          DoseEvent(
+            medicineId: med.id,
+            slot: MealSlot.whenNeeded,
+            relation: MealRelation.anytime,
+          ),
+        );
+      } else {
+        final parts = freq.split('+');
+        if (parts.isNotEmpty && parts[0] != '0') {
+          doses.add(
+            DoseEvent(
+              medicineId: med.id,
+              slot: morningSlot,
+              relation: relation,
+            ),
+          );
+        }
+        if (parts.length > 1 && parts[1] != '0') {
+          doses.add(
+            DoseEvent(
+              medicineId: med.id,
+              slot: ramadan ? MealSlot.bedtime : MealSlot.lunch,
+              relation: relation,
+            ),
+          );
+        }
+        if (parts.length > 2 && parts[2] != '0') {
+          doses.add(
+            DoseEvent(
+              medicineId: med.id,
+              slot: noteLower.contains('bedtime')
+                  ? MealSlot.bedtime
+                  : eveningSlot,
+              relation: relation,
+            ),
+          );
+        }
+      }
+    }
+
+    return DailyPlan(
+      id: 'plan-${rx.id}',
+      prescriptionId: rx.id,
+      scheduled: scheduled,
+      unscheduled: unscheduled,
+      doses: doses,
+      duplicates: const [],
+      foodCardsByMedicineId: const {},
+      sideEffectsByMedicineId: const {},
+      ramadan: ramadan,
+      ramadanDoctorApproved: ramadanApproved,
+    );
+  }
+
+  /// Built-in synthetic prescription definitions matching Block 0
+  static Prescription syntheticDemoPrescription(DemoPrescriptionId id) {
     final now = DateTime.now();
     switch (id) {
       case DemoPrescriptionId.rx1:

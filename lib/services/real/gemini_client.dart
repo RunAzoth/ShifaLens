@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:isolate';
-import 'dart:typed_data';
 
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:image/image.dart' as img;
 
@@ -55,6 +55,35 @@ Uint8List _resizeAndCompressJpegSync(Uint8List inputBytes) {
   return Uint8List.fromList(img.encodeJpg(processed, quality: 80));
 }
 
+/// Detect image MIME type from initial magic bytes.
+String detectImageMimeType(Uint8List bytes) {
+  if (bytes.length >= 8 &&
+      bytes[0] == 0x89 &&
+      bytes[1] == 0x50 &&
+      bytes[2] == 0x4E &&
+      bytes[3] == 0x47) {
+    return 'image/png';
+  }
+  if (bytes.length >= 3 &&
+      bytes[0] == 0xFF &&
+      bytes[1] == 0xD8 &&
+      bytes[2] == 0xFF) {
+    return 'image/jpeg';
+  }
+  if (bytes.length >= 12 &&
+      bytes[0] == 0x52 &&
+      bytes[1] == 0x49 &&
+      bytes[2] == 0x46 &&
+      bytes[3] == 0x46 &&
+      bytes[8] == 0x57 &&
+      bytes[9] == 0x45 &&
+      bytes[10] == 0x42 &&
+      bytes[11] == 0x50) {
+    return 'image/webp';
+  }
+  return 'image/jpeg';
+}
+
 class GeminiClient {
   final String modelName;
   final double temperature;
@@ -76,18 +105,26 @@ class GeminiClient {
   GeminiClient({
     this.modelName = kGeminiModel,
     this.temperature = 0.1,
-    this.timeout = const Duration(seconds: 25),
+    this.timeout = const Duration(seconds: 45),
     this.maxRetries = 1,
     http.Client? httpClient,
   }) : _httpClient = httpClient ?? http.Client();
 
-  /// Resizes and compresses an image to max 1600px JPEG (quality 80) in a background isolate.
+  /// Resizes and compresses an image to max 1600px JPEG (quality 80).
+  /// Uses synchronous compression on web or when isolates are unavailable.
   Future<Uint8List> prepareImageJpeg(Uint8List rawBytes) async {
     if (rawBytes.isEmpty) return rawBytes;
     try {
+      if (kIsWeb) {
+        return _resizeAndCompressJpegSync(rawBytes);
+      }
       return await Isolate.run(() => _resizeAndCompressJpegSync(rawBytes));
     } catch (_) {
-      return rawBytes;
+      try {
+        return _resizeAndCompressJpegSync(rawBytes);
+      } catch (_) {
+        return rawBytes;
+      }
     }
   }
 
@@ -105,7 +142,8 @@ class GeminiClient {
     for (final part in mediaParts) {
       if (part.mimeType.startsWith('image/')) {
         final compressed = await prepareImageJpeg(part.bytes);
-        preparedMedia.add((mimeType: 'image/jpeg', bytes: compressed));
+        final detectedMime = detectImageMimeType(compressed);
+        preparedMedia.add((mimeType: detectedMime, bytes: compressed));
       } else {
         preparedMedia.add(part);
       }

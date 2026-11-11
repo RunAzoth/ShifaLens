@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../app/config.dart';
 import '../../app/providers.dart';
 import '../../core/models/models.dart';
+import '../../services/real/gemini_client.dart';
 import '../theme/app_tokens.dart';
 import '../theme/language_controller.dart';
 import '../widgets/widgets.dart';
@@ -214,6 +215,20 @@ class HomeScreen extends ConsumerWidget {
                       onChanged: (real) => ref
                           .read(appConfigProvider.notifier)
                           .update((c) => c.copyWith(mockVoice: !real)),
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      initialValue: GeminiClient.effectiveApiKey,
+                      decoration: const InputDecoration(
+                        labelText: 'Gemini API Key (Live Testing)',
+                        hintText: 'Enter API key or use build define',
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.key_rounded),
+                        isDense: true,
+                      ),
+                      onChanged: (val) {
+                        GeminiClient.runtimeApiKey = val.trim();
+                      },
                     ),
                     const SizedBox(height: 12),
                     OutlinedButton.icon(

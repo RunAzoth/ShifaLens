@@ -103,11 +103,12 @@ If a line has unreadable characters (like "Tab. ????? 1+0+1"), include the rawTe
   Future<Prescription> read(Uint8List jpeg) async {
     await _knowledge.load();
     try {
+      final mimeType = detectImageMimeType(jpeg);
       final response = await _client.generateStructuredJson(
         systemInstruction: _systemPrompt,
         promptText: _userPrompt,
         responseSchema: _responseSchema,
-        mediaParts: [(mimeType: 'image/jpeg', bytes: jpeg)],
+        mediaParts: [(mimeType: mimeType, bytes: jpeg)],
       );
 
       final rawLines = response['lines'] as List<dynamic>? ?? const [];
@@ -127,7 +128,7 @@ If a line has unreadable characters (like "Tab. ????? 1+0+1"), include the rawTe
         id: 'rx_${_uuid.v4().substring(0, 8)}',
         lines: parsedLines,
         createdAt: DateTime.now(),
-        synthetic: true,
+        synthetic: false,
       );
     } catch (e) {
       // ignore: avoid_print

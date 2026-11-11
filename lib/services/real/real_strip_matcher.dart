@@ -116,7 +116,7 @@ ${jsonEncode(medListJson)}
         responseSchema: _responseSchema,
         mediaParts: [
           for (final bytes in limitedStrips)
-            (mimeType: 'image/jpeg', bytes: bytes),
+            (mimeType: detectImageMimeType(bytes), bytes: bytes),
         ],
       );
 

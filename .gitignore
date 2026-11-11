@@ -50,3 +50,5 @@ app.*.map.json
 **/GoogleService-Info.plist
 .env*
 *.key
+*.local.dart
+scratch/

@@ -1,4 +1,4 @@
-package com.example.nuskha_saathi
+package com.shifalens.app
 
 import io.flutter.embedding.android.FlutterActivity
 

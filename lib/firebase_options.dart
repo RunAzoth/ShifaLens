@@ -8,19 +8,19 @@ class DefaultFirebaseOptions {
   static const String _apiKey = String.fromEnvironment('FIREBASE_API_KEY');
   static const String _appId = String.fromEnvironment(
     'FIREBASE_APP_ID',
-    defaultValue: '1:623963868923:android:shifalens0001',
+    defaultValue: '1:263272163004:android:7fc52f1425141955ccd2b9',
   );
   static const String _messagingSenderId = String.fromEnvironment(
     'FIREBASE_MESSAGING_SENDER_ID',
-    defaultValue: '623963868923',
+    defaultValue: '263272163004',
   );
   static const String _projectId = String.fromEnvironment(
     'FIREBASE_PROJECT_ID',
-    defaultValue: 'madlab-9b032',
+    defaultValue: 'my-shifalense',
   );
   static const String _storageBucket = String.fromEnvironment(
     'FIREBASE_STORAGE_BUCKET',
-    defaultValue: 'madlab-9b032.firebasestorage.app',
+    defaultValue: 'my-shifalense.firebasestorage.app',
   );
 
   static bool get isConfigured => _apiKey.isNotEmpty;
